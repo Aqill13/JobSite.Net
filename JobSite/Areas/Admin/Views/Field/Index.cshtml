@@ -1,0 +1,317 @@
+﻿@model List<Field>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/html/src/plugins/src/table/datatable/datatables.css">
+
+<link rel="stylesheet" type="text/css" href="~/html/src/plugins/css/light/table/datatable/dt-global_style.css">
+<link href="~/html/src/assets/css/light/apps/invoice-list.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="~/html/src/plugins/css/dark/table/datatable/dt-global_style.css">
+<link href="~/html/src/assets/css/dark/apps/invoice-list.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="~/html/src/plugins/src/sweetalerts2/sweetalerts2.css">
+
+<style>
+    .checkbox-column {
+        max-width: 10px;
+    }
+
+    .badge {
+        cursor: pointer;
+    }
+
+    #categories p{
+        background: #dddd;
+        border-radius:5px;
+        padding: 3px 5px;
+        color: #222;
+    }
+
+</style>
+
+@if (TempData["createdSuccessfully"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '@TempData["createdSuccessfully"]'
+        });
+    </script>
+}
+@if (TempData["updatedSuccessfully"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '@TempData["updatedSuccessfully"]'
+        });
+    </script>
+}
+
+
+<div class="layout-px-spacing">
+
+    <div class="middle-content container-xxl p-0">
+        <div class="row" id="cancel-row">
+            @* Modal *@
+            <div class="modal fade" id="infoField" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background-color: #1B2E4B">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Field Details - <span id="fieldName" class="text-warning"></span> </h5>
+                            <button type="button" data-bs-dismiss="modal" style="background: transparent; color: #fff; border: none">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-flex gap-2">
+                                <h6>Total Jobs: </h6>
+                                <p class="modal-text" id="totalJobs">37</p>
+                            </div>
+                            <div>
+                                <h6>Categories:</h6>
+                                <div id="categories" class="d-flex gap-1 flex-wrap"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn btn-light-dark" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4>Fields List</h4>
+                    <div class="d-flex gap-4">
+                        <a asp-area="Admin" asp-controller="Field" asp-action="Create" class="btn btn-primary mb-2">Add New</a>
+                        <button class="btn btn-outline-danger mb-2">Delete Selected</button>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area br-8" style="position: relative">
+                    <table id="invoice-list" class="table dt-table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="select-all" />
+                                </th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Icon</th>
+                                <th>Created Date</th>
+                                <th>Is Active?</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var field in Model)
+                            {
+                                <tr id="row-@field.Id">
+                                    <td>
+                                        <input type="checkbox" class="field-checkbox" />
+                                    </td>
+                                    <td>
+                                        <span class="inv-number">#@field.Id</span>
+                                    </td>
+                                    <td>
+                                        <p class="align-self-center mb-0 field-name"> @field.Name </p>
+                                    </td>
+                                    <td>
+                                        <span class="inv-email">
+                                            <i class="@field.Icon" style="color:#805DCA; height:17px; width:17px"></i>
+                                            @field.Icon
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="inv-date">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                            @field.CreatedDate
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if (field.IsActive)
+                                        {
+                                            <span class="badge badge-success inv-status">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger inv-status">Passive</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="badge badge-light-info text-center me-2 action-info" onclick="fieldInfo(@field.Id)" data-bs-toggle="modal" data-bs-target="#infoField" style="width:35px; height:27px">
+                                            <i class="fa-solid fa-info"></i>
+                                        </a>
+
+                                        <a class="badge badge-light-warning text-start me-2 action-edit"
+                                           asp-area="Admin" asp-controller="Field" asp-action="Update"
+                                           asp-route-id="@field.Id">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-edit-3">
+                                                <path d="M12 20h9"></path>
+                                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                            </svg>
+                                        </a>
+
+                                        <a class="badge badge-light-danger text-start action-delete"
+                                           onclick="deleteItem(@field.Id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-trash">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function fieldInfo(id){
+        $.ajax({
+            url: "/Admin/Field/FieldInfo",
+            data: { id: id },
+            success: function(data) {
+                console.log(data);
+                console.log(data.jobsCount)
+                let categoriesHtml = '';
+                data.categories.forEach(function(category, index) {
+                    categoriesHtml += '<p>' + category + " " + data.jobsCount[index].jobCount + '</p>';
+                });
+
+                $('#categories').html(categoriesHtml);
+                $('#totalJobs').text(data.totalJobsCount);
+                $('#fieldName').text(data.fieldName);
+                
+                $('#infoField').modal('show');
+            },
+            error: function() {
+                console.log('Error!');
+            }
+        })
+    }
+
+
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You cannot undo this transaction!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete!',
+            cancelButtonText: 'No, cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/Admin/Field/Delete',
+                    type: 'DELETE',
+                    data: { id: id },
+                    success: function (response) {
+                        $('#row-' + id).remove();
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                title: 'custom-toast-title'
+                            },
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        });
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
+
+                    },
+                    error: function () {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                title: 'custom-toast-title'
+                            },
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        });
+
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Delete operation failed'
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+
+
+
+
+<script src="~/html/src/plugins/src/global/vendors.min.js"></script>
+<script src="~/html/src/assets/js/custom.js"></script>
+<!-- END GLOBAL MANDATORY SCRIPTS -->
+<script src="~/html/src/plugins/src/table/datatable/datatables.js"></script>
+<script src="~/html/src/plugins/src/table/datatable/button-ext/dataTables.buttons.min.js"></script>
+<script src="~/html/src/assets/js/apps/invoice-list.js"></script>
+
+

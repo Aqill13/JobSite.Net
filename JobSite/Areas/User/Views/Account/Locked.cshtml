@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Hesabınız kilidləndi";
+}
+
+<h2>Hesabınız kilidləndi</h2>
+<p>Çox sayda uğursuz giriş cəhdi səbəbindən hesabınız kilidlənmişdir.</p>
+
+@if (ViewBag.LockoutMinutes > 0)
+{
+    <p>Zəhmət olmasa, <strong>@ViewBag.LockoutMinutes dəqiqə</strong> sonra yenidən cəhd edin.</p>
+}
+

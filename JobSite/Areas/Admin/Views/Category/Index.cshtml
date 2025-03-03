@@ -1,0 +1,364 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<Field>
+
+
+<link rel="stylesheet" type="text/css" href="~/html/src/plugins/src/table/datatable/datatables.css">
+
+<link rel="stylesheet" type="text/css" href="~/html/src/plugins/css/light/table/datatable/dt-global_style.css">
+<link href="~/html/src/assets/css/light/apps/invoice-list.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="~/html/src/plugins/css/dark/table/datatable/dt-global_style.css">
+<link href="~/html/src/assets/css/dark/apps/invoice-list.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="~/html/src/plugins/src/sweetalerts2/sweetalerts2.css">
+
+<style>
+    .messageRow p{
+        width: 2990%;
+        border: 1px solid orange;
+        justify-content: center;
+        display: flex;
+    }
+    .tablee {
+        width: 100%;
+        table-layout: fixed;
+    }
+    .dt-paging-button.current {
+        background-color: #fff !important;
+    }
+
+    #invoice-list_wrapper{
+        padding: 10px;
+    }
+    .tablee tr th, .tablee tr td {
+        padding: 10px;
+    }
+    .tablee tr th:nth-child(1){
+        width:20px;
+        max-width: 20px;
+    }
+    .tablee tr td:nth-child(1) button {
+        border-radius: 50%;
+        font-size: 18px;
+        background: transparent;
+        border: 1px solid green;
+        color: green;
+        height: 25px;
+        width:25px;
+        display: flex;
+        align-items: center;
+         justify-content: center;
+    }
+    .checkbox-column {
+        max-width: 10px;
+    }
+
+    .badge {
+        cursor: pointer;
+    }
+
+    #categories p {
+        background: #dddd;
+        border-radius: 5px;
+        padding: 3px 5px;
+        color: #222;
+    }
+
+</style>
+
+@if (TempData["createdSuccessfully"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '@TempData["createdSuccessfully"]'
+        });
+    </script>
+}
+@if (TempData["updatedSuccessfully"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '@TempData["updatedSuccessfully"]'
+        });
+    </script>
+}
+
+
+<div class="layout-px-spacing">
+
+    <div class="middle-content container-xxl p-0">
+        <div class="row" id="cancel-row">
+
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4>Categories List</h4>
+                    <div class="d-flex gap-4">
+                        <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="btn btn-primary mb-2">Add New</a>
+                        <button class="btn btn-outline-danger mb-2">Delete Selected</button>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area br-8" style="position: relative">
+                    <table class="tablee table" id="invoice-list">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Field</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var field in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <button class="show-categories-btn" data-id="@field.Id">+</button>
+                                    </td>
+                                    <td>@field.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+ 
+<link href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".tablee").DataTable();
+    })
+
+</script>
+
+<script>
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You cannot undo this transaction!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete!',
+            cancelButtonText: 'No, cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/Admin/Category/Delete',
+                    type: 'DELETE',
+                    data: { id: id },
+                    success: function (response) {
+                        $('#row-' + id).remove();
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                title: 'custom-toast-title'
+                            },
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        });
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
+
+                    },
+                    error: function () {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                title: 'custom-toast-title'
+                            },
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        });
+
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Delete operation failed'
+                        });
+                    }
+                });
+            }
+        });
+    }
+    $(document).ready(function () {
+        function formatDate(dateString) {
+            var date = new Date(dateString);
+            var day = String(date.getDate()).padStart(2, '0');
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var year = date.getFullYear();
+            var hours = String(date.getHours()).padStart(2, '0');
+            var minutes = String(date.getMinutes()).padStart(2, '0');
+            var seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // Açık olan satırları saklamak için bir nesne tanımlıyoruz
+        let openedRows = {};
+
+        // Satır açma/kapama işlevi
+        function toggleRow(id, row, button) {
+            if (row.next('.child-row').length) {
+                row.next('.child-row').remove();
+                button.text('+').css({ 'border-color': '', 'color': '' });
+                delete openedRows[id]; // Hafızadan kaldır
+                return;
+            }
+
+            $.ajax({
+                url: '/Admin/Category/GetCategoriesByField',
+                type: 'GET',
+                data: { id: id },
+                success: function (data) {
+                    console.log(data)
+                    row.next('.child-row').remove();
+
+                    if (data.length === 0) {
+                        var messageRow = '<div class="child-row messageRow"><p>Data yoxdur</p></div>';
+                        row.after(messageRow);
+                        button.text('-').css({ 'border-color': 'red', 'color': 'red' });
+                        openedRows[id] = true; // Satırı açık olarak sakla
+                        return;
+                    }
+
+                    var categoryRows = '<table class="child-row" style="width:2990%; table-layout: fixed;">';
+                    categoryRows += '<thead>' +
+                        '<tr>' +
+                        '<th>Id</th>' +
+                        '<th>Category Name</th>' +
+                        '<th>Job Count</th>' +
+                        '<th>Created Date</th>' +
+                        '<th>Is Active ?</th>' +
+                        '<th>Actions</th>' +
+                        '</tr>' +
+                        '</thead>' +
+                        '<tbody>';
+
+                    $.each(data, function (index, category) {  
+                        var formattedDate = formatDate(category.createdDate);
+
+                        categoryRows += '<tr id="row-' + category.id + '">';
+                        categoryRows += '<td>' + category.id + '</td>';
+                        categoryRows += '<td>' + category.name + '</td>';
+                        categoryRows += '<td>' + category.workCount + '</td>'; 
+                        categoryRows += '<td>' + '<i class="fa-regular fa-calendar" style="color:#208EE6; font-size:18px; margin-right:4px"></i>' + formattedDate + '</td>';
+                        categoryRows += '<td>' + (category.isActive ? '<span class="badge badge-success inv-status">Active</span>' : '<span class="badge badge-danger inv-status">Passive</span>') + '</td>';
+                        categoryRows += '<td><a class="badge badge-light-warning text-start me-2 action-edit"' +
+                            'href="/Admin/Category/Update/' + category.id + '">' + 
+                            '<svg xmlns="http://www.w3.org/2000/svg"' +
+                            'width = "24" height = "24" viewBox = "0 0 24 24" fill = "none" stroke = "currentColor"' +
+                            'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
+                            'class="feather feather-edit-3" > ' +
+                            '<path d = "M12 20h9" ></path>' +
+                            '<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>' +
+                            '</svg>' +
+                            '</a>' +
+                            '<a class="badge badge-light-danger text-start action-delete"' +
+                            'onclick="deleteItem(' + category.id + ')">' +
+                            '<svg xmlns="http://www.w3.org/2000/svg"' +
+                            'width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+                            'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
+                            'class="feather feather-trash">' +
+                            '<polyline points="3 6 5 6 21 6"></polyline>' +
+                            '<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>' +
+                            '</svg>' +
+                            '</a></td > ';
+                        categoryRows += '</tr>';
+                    });
+
+                    categoryRows += '</tbody></table>';
+                    row.after(categoryRows);
+                    button.text('-').css({ 'border-color': 'red', 'color': 'red' });
+                    openedRows[id] = true; // Satırı açık olarak sakla
+                }
+            });
+        }
+
+        // Sayfa yüklendiğinde veya her yeni sayfa açıldığında eventleri ekle
+        $(document).on('click', '.show-categories-btn', function () {
+            var id = $(this).data('id');
+            var row = $(this).closest('tr');
+            var button = $(this);
+            toggleRow(id, row, button);
+        });
+
+        // Sayfa geçişlerinde açık olan satırları tekrar aç
+        $('#dataTable').on('draw.dt', function () {
+            $('.show-categories-btn').each(function () {
+                var id = $(this).data('id');
+                if (openedRows[id]) {
+                    var row = $(this).closest('tr');
+                    var button = $(this);
+                    toggleRow(id, row, button);
+                }
+            });
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

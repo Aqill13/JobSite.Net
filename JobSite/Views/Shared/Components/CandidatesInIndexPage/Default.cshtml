@@ -1,0 +1,18 @@
+﻿
+@{
+    Layout = null;
+}
+@model List<Candidate>
+
+@foreach (var c in Model)
+{
+    <div class="single_candidates_index">
+        <a asp-controller="Candidates" asp-action="Details" asp-route-id="@c.Id">
+            <div class="thumb">
+                <img src="@c.Image" alt="Candidate">
+            </div>
+            <a><h4>@c.Firstname @c.Lastname</h4></a>
+            <p>@c.Position</p>
+        </a>
+    </div>
+}

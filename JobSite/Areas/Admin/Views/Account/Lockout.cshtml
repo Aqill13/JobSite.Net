@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+<h2>Kilitlenme</h2>
+
+<p>
+    Hesabınız geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.
+</p>
+
+@{
+    Layout = null;
+    var timeLeftString = TempData["TimeLeft"] as string;
+    TimeSpan timeLeft;
+    if (TimeSpan.TryParse(timeLeftString, out timeLeft))
+    {
+        var formattedTime = timeLeft.ToString(@"hh\:mm\:ss");
+        <p>Hesabınız @(formattedTime) içinde tekrar erişilebilir olacak.</p>
+    }
+    else
+    {
+        <p>Hesabınız geçici olarak kilitlendi. Lütfen daha sonra tekrar deneyin.</p>
+    }
+}
+
+

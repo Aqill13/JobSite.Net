@@ -1,0 +1,400 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\User\Data\" />
+    <Folder Include="wwwroot\JobSite\.git\objects\info\" />
+    <Folder Include="wwwroot\JobSite\.git\objects\pack\" />
+    <Folder Include="wwwroot\JobSite\.git\refs\tags\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\JobSite\.git\COMMIT_EDITMSG" />
+    <None Include="wwwroot\JobSite\.git\config" />
+    <None Include="wwwroot\JobSite\.git\description" />
+    <None Include="wwwroot\JobSite\.git\HEAD" />
+    <None Include="wwwroot\JobSite\.git\hooks\applypatch-msg.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\commit-msg.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\fsmonitor-watchman.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\post-update.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\pre-applypatch.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\pre-commit.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\pre-merge-commit.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\pre-push.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\pre-rebase.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\pre-receive.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\push-to-checkout.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\sendemail-validate.sample" />
+    <None Include="wwwroot\JobSite\.git\hooks\update.sample" />
+    <None Include="wwwroot\JobSite\.git\index" />
+    <None Include="wwwroot\JobSite\.git\info\exclude" />
+    <None Include="wwwroot\JobSite\.git\logs\HEAD" />
+    <None Include="wwwroot\JobSite\.git\logs\refs\heads\main" />
+    <None Include="wwwroot\JobSite\.git\logs\refs\remotes\origin\main" />
+    <None Include="wwwroot\JobSite\.git\objects\00\8e3cf49fe6b1c162cde2a5c1d8932e7c851400" />
+    <None Include="wwwroot\JobSite\.git\objects\00\a0d865a19627ac9abead1ed22b693dd5324f1c" />
+    <None Include="wwwroot\JobSite\.git\objects\00\f09b2241e2c0e7e3d6faeacf154104b6447176" />
+    <None Include="wwwroot\JobSite\.git\objects\01\2e8547c77aecaed1a0364c4b75363bf02d6680" />
+    <None Include="wwwroot\JobSite\.git\objects\01\3e2109690deefee8d8b0ceabd4ac6cf6c88b64" />
+    <None Include="wwwroot\JobSite\.git\objects\02\13552372f1cddab3995c41dd751a624f9a9efc" />
+    <None Include="wwwroot\JobSite\.git\objects\02\a1f72d59a899e8b2f1bf182da46fe9ef78efc2" />
+    <None Include="wwwroot\JobSite\.git\objects\04\8dc95fc0c9e479ac0d4fedc7534f107bb63c99" />
+    <None Include="wwwroot\JobSite\.git\objects\04\b94b3ded845ece393caf29db12b54b97733ad9" />
+    <None Include="wwwroot\JobSite\.git\objects\05\11e45f1800778b0d8e4c5c5afe6b7e8b4f9cf5" />
+    <None Include="wwwroot\JobSite\.git\objects\05\93dd209cc23bdab036196f0835700cd30a95a1" />
+    <None Include="wwwroot\JobSite\.git\objects\06\dd82e4b6227ca1c876983bd55d08aaa6c7e9fa" />
+    <None Include="wwwroot\JobSite\.git\objects\06\efc77619f173b8c451b954e58fd341b1ed7d5f" />
+    <None Include="wwwroot\JobSite\.git\objects\07\9214efe11da48fd686db1dab4ae700de86dfa5" />
+    <None Include="wwwroot\JobSite\.git\objects\07\d8e573568b334ba5241d163307fe97755d35f7" />
+    <None Include="wwwroot\JobSite\.git\objects\08\d905f3b230c9fa6f1e7eca8cad877002f15da7" />
+    <None Include="wwwroot\JobSite\.git\objects\08\f9e10e4ea57944826f5c22baedbd1dc1627771" />
+    <None Include="wwwroot\JobSite\.git\objects\09\27dab9fd7ab0196526141012eeb2fff91ae5af" />
+    <None Include="wwwroot\JobSite\.git\objects\09\ce7cd29b25635a50259ca5d1685121d718c23a" />
+    <None Include="wwwroot\JobSite\.git\objects\09\db4afe7e610bd351a456f9da49511912efb4fb" />
+    <None Include="wwwroot\JobSite\.git\objects\0a\646f203c73b845f9b07567bcfc9a6566730a95" />
+    <None Include="wwwroot\JobSite\.git\objects\0b\e175296894671b466de8b4548243ba8e333c06" />
+    <None Include="wwwroot\JobSite\.git\objects\0c\248fcb09a40ff35bdded3279db6808a2e90edc" />
+    <None Include="wwwroot\JobSite\.git\objects\0d\7ac624927aadabfb04a07ec5503b165a7050f2" />
+    <None Include="wwwroot\JobSite\.git\objects\0f\20d2a8959f7259a48331ce34d35a310c2c3e0e" />
+    <None Include="wwwroot\JobSite\.git\objects\0f\809206b2324f162620d526998d51842f37367d" />
+    <None Include="wwwroot\JobSite\.git\objects\11\f67f02d3c7a38b99489f71ea21f349174ddd5d" />
+    <None Include="wwwroot\JobSite\.git\objects\12\719a1f45024a76d47b6df566e6a7b5c40257dc" />
+    <None Include="wwwroot\JobSite\.git\objects\15\88d5a59eec2ae6d7c9e8b04271158df10b57ea" />
+    <None Include="wwwroot\JobSite\.git\objects\15\b084ed6556753f9c1b4a09561774fe63094d5d" />
+    <None Include="wwwroot\JobSite\.git\objects\18\ba0e71f3923bcc86ec90d237c268b7123b25f3" />
+    <None Include="wwwroot\JobSite\.git\objects\19\3b55ecc2b1f0cd50e55edd0748e2aec9c031ab" />
+    <None Include="wwwroot\JobSite\.git\objects\19\40748deee06f89274b47bc42cda3d40f0d005c" />
+    <None Include="wwwroot\JobSite\.git\objects\19\4bd0d941cbe99fad507268375387b3de0e2ad4" />
+    <None Include="wwwroot\JobSite\.git\objects\19\fedfcc8e3c86c9d578d31b5cbbeaffd0efd263" />
+    <None Include="wwwroot\JobSite\.git\objects\1a\150a6ad33469887aa4b747723580b0360afad6" />
+    <None Include="wwwroot\JobSite\.git\objects\1a\47b57df1a620e982c58953090fe69ceffc384b" />
+    <None Include="wwwroot\JobSite\.git\objects\1a\6b87a175062b1c7508ab88f90873e813f8ea7a" />
+    <None Include="wwwroot\JobSite\.git\objects\1b\45cdf0871791785a956a1fd75396ad00ea61bd" />
+    <None Include="wwwroot\JobSite\.git\objects\1b\49f33f8e58a446277ffaf1bb77c84ba1baaf7d" />
+    <None Include="wwwroot\JobSite\.git\objects\1c\80def2785fd640fead7b684a1f98bdae138adb" />
+    <None Include="wwwroot\JobSite\.git\objects\1d\b1f70cb0d047242c62fc795a54dd61277544c2" />
+    <None Include="wwwroot\JobSite\.git\objects\1e\ce042ac23a93193597167153b7373b7ff28e62" />
+    <None Include="wwwroot\JobSite\.git\objects\1f\2017cd4f0c1e770056b09ffea9c9a0e9c65ee0" />
+    <None Include="wwwroot\JobSite\.git\objects\1f\fcc691875c84815fb8dafa17b9601d82e32e3d" />
+    <None Include="wwwroot\JobSite\.git\objects\21\047659367478659753c4d6bdd2d81ba8474625" />
+    <None Include="wwwroot\JobSite\.git\objects\21\af4ea707695983d6a8b0b24dff0fedbba7e975" />
+    <None Include="wwwroot\JobSite\.git\objects\21\f8bee9c2888059d6ce805cc44ab7b00543e217" />
+    <None Include="wwwroot\JobSite\.git\objects\22\0562820b39252863719aed985065772eb91122" />
+    <None Include="wwwroot\JobSite\.git\objects\22\328516812f15a2a4a65948d2c99833dd5caa3f" />
+    <None Include="wwwroot\JobSite\.git\objects\23\3800d5cf261968e4ffa97bbf29b9baa1ad5e33" />
+    <None Include="wwwroot\JobSite\.git\objects\24\70db40a55a0855813cfc9044912346a50c39a2" />
+    <None Include="wwwroot\JobSite\.git\objects\24\c6b8f657abf38ce3bf79fb6cc874fd56ab2d48" />
+    <None Include="wwwroot\JobSite\.git\objects\25\247f5f23539c9245622c09a9544d80ed66d941" />
+    <None Include="wwwroot\JobSite\.git\objects\25\2efb526f8630db1df9c3f976cfb7c6e06a3947" />
+    <None Include="wwwroot\JobSite\.git\objects\26\06db1994464892666757211a74d8aba8f9d3fb" />
+    <None Include="wwwroot\JobSite\.git\objects\27\1b36ec28827f03da0aa978fcec51ff589f9f8c" />
+    <None Include="wwwroot\JobSite\.git\objects\27\e4cd7f33fbb68fc1acaeedf54352b591912aa1" />
+    <None Include="wwwroot\JobSite\.git\objects\29\23ce7367b54cb7124ae253e4d58a0fd141b96d" />
+    <None Include="wwwroot\JobSite\.git\objects\29\51db0f32381d7f0d1cd982f28c12f0643c38fe" />
+    <None Include="wwwroot\JobSite\.git\objects\29\852715dbe70d7cccb8b6ecc88cbe85e94de47c" />
+    <None Include="wwwroot\JobSite\.git\objects\2a\24561b9ecfa811fb78d933543ee5f99e32075a" />
+    <None Include="wwwroot\JobSite\.git\objects\2b\089557d4e99cbe7ae37b5794c2427a9495a35d" />
+    <None Include="wwwroot\JobSite\.git\objects\2b\55d9cd6d854d590334cb9d45a48284e26960a6" />
+    <None Include="wwwroot\JobSite\.git\objects\2c\ad2c7c49bab5018bf178b2da26c381f0805a63" />
+    <None Include="wwwroot\JobSite\.git\objects\2f\d6764f2a921fdc7d9238f5d91c888a20da3ba8" />
+    <None Include="wwwroot\JobSite\.git\objects\30\d5418ce1499722d668442595611ba80cde0b05" />
+    <None Include="wwwroot\JobSite\.git\objects\30\df1978f542538264a18b49497f388b1e914dfc" />
+    <None Include="wwwroot\JobSite\.git\objects\31\58021cee8435635595dc37e662dfb2924a57e9" />
+    <None Include="wwwroot\JobSite\.git\objects\33\271ea1a30f51e4bebbf4f345f56df741ed75cf" />
+    <None Include="wwwroot\JobSite\.git\objects\33\67639ab349abf1213b202f4e962a5f1ef8fb52" />
+    <None Include="wwwroot\JobSite\.git\objects\34\2456f62672577839201a15c708b662d637684f" />
+    <None Include="wwwroot\JobSite\.git\objects\34\61e3fce6a37f2321ecbe64707f04c0a4f05424" />
+    <None Include="wwwroot\JobSite\.git\objects\34\be13d07e99eda283b2fc4c0415af6fb7313643" />
+    <None Include="wwwroot\JobSite\.git\objects\34\f6864a155b18bcca36d86f39c3034cc6d49424" />
+    <None Include="wwwroot\JobSite\.git\objects\35\02a2c6287789c7dfc2c5d5662972cd61f38b0c" />
+    <None Include="wwwroot\JobSite\.git\objects\35\acda2fa1196aad98c2adf4378a7611dd713aa3" />
+    <None Include="wwwroot\JobSite\.git\objects\35\f3d101f4e3ff27a697e487563776fdfbbcdccd" />
+    <None Include="wwwroot\JobSite\.git\objects\36\52a5e9ca6430c4fd337cc666948c253e102f7e" />
+    <None Include="wwwroot\JobSite\.git\objects\36\759e66aa67d02c66f1283d845a52260b59d1aa" />
+    <None Include="wwwroot\JobSite\.git\objects\39\658c7d94b75c7721f366547c7ba0bd6dc815ee" />
+    <None Include="wwwroot\JobSite\.git\objects\3b\af0a43f522acd5ea142547a8e18c3ae01a2e0f" />
+    <None Include="wwwroot\JobSite\.git\objects\3b\bd6120cba48224a7a2c5ccb24512155b09ad82" />
+    <None Include="wwwroot\JobSite\.git\objects\3b\cad6c09d6cea2fd58272d861f5e44ba69192ad" />
+    <None Include="wwwroot\JobSite\.git\objects\3c\52d619849b2aff305fbe6ec1dbf63da836418b" />
+    <None Include="wwwroot\JobSite\.git\objects\3c\cd2556f337c12e59bb256a788fcbe4b2af08af" />
+    <None Include="wwwroot\JobSite\.git\objects\3d\538544143866ff4ef230c389c48acba0ac1d7f" />
+    <None Include="wwwroot\JobSite\.git\objects\3d\920fc87c230c0d6fe777dfd422d68dd1ef787b" />
+    <None Include="wwwroot\JobSite\.git\objects\3e\232d3132dcca565c25566619383b82316c7e75" />
+    <None Include="wwwroot\JobSite\.git\objects\3e\d82a504c4741e8ce4edc193450b36658123a04" />
+    <None Include="wwwroot\JobSite\.git\objects\3f\245fddc2047ef1ffd5594963e488d5f9f6a0bc" />
+    <None Include="wwwroot\JobSite\.git\objects\40\0014a4b06eee3d0c0d54402a47ab2601b2862b" />
+    <None Include="wwwroot\JobSite\.git\objects\40\1ec0f36e4f73b8efa40bd6f604fe80d286db70" />
+    <None Include="wwwroot\JobSite\.git\objects\40\9be009af7c2e50922f48ed242bbc68203f9735" />
+    <None Include="wwwroot\JobSite\.git\objects\42\97a9a6486b6c93e335a2d2805c2bf91e04dbf8" />
+    <None Include="wwwroot\JobSite\.git\objects\43\75e2406221cb0cdff9b5c11e1725653556318e" />
+    <None Include="wwwroot\JobSite\.git\objects\45\eb4a2e870c7fa65f5a7ff291a77f28399344a8" />
+    <None Include="wwwroot\JobSite\.git\objects\47\b94cb2c50fd80c61fad6319fe2739b5bb35efb" />
+    <None Include="wwwroot\JobSite\.git\objects\48\4797a64800cfea6a193693632751e8e16f7861" />
+    <None Include="wwwroot\JobSite\.git\objects\49\02a8f5e123e17665fac1c56d647a8ae370fcb6" />
+    <None Include="wwwroot\JobSite\.git\objects\49\6cb054af4f9ed1b42337f4a771e7a0629b65a3" />
+    <None Include="wwwroot\JobSite\.git\objects\49\84061555fc821549a9ea05d25607582599a053" />
+    <None Include="wwwroot\JobSite\.git\objects\49\8f402524aa7ccbc5b57f08ab8597d4d454a7c0" />
+    <None Include="wwwroot\JobSite\.git\objects\49\d1fb9da28b21f093817e9784462772c599f179" />
+    <None Include="wwwroot\JobSite\.git\objects\4a\59685d5261cee599fd3e518fe9b8ea596232bc" />
+    <None Include="wwwroot\JobSite\.git\objects\4a\f640f0cc2cf1dd13822ffaca193b964123c2d5" />
+    <None Include="wwwroot\JobSite\.git\objects\4b\0b6f04d2982779675a4e005072cdec4c63b9d5" />
+    <None Include="wwwroot\JobSite\.git\objects\4b\26171bfc232b8b59c063ef2bb45572dc1469f3" />
+    <None Include="wwwroot\JobSite\.git\objects\4b\2f01a3f3d8e778d49cc3f8c05d3ad607ab703f" />
+    <None Include="wwwroot\JobSite\.git\objects\4c\286615a24172abbd766e904e7fddc8d34b35b4" />
+    <None Include="wwwroot\JobSite\.git\objects\4d\13fc60404b91e398a37200c4a77b645cfd9586" />
+    <None Include="wwwroot\JobSite\.git\objects\4d\bacf945a69aa14f678c2fc81d220c80dbca55f" />
+    <None Include="wwwroot\JobSite\.git\objects\4e\29bddecbbcdb01c669fb2c89aca4a2505a59bc" />
+    <None Include="wwwroot\JobSite\.git\objects\4f\81d875541cd8ea41561beb0d5c8405016ac207" />
+    <None Include="wwwroot\JobSite\.git\objects\4f\e4f6de2eab6753a060188447c8d6cd08c29f0e" />
+    <None Include="wwwroot\JobSite\.git\objects\50\c6387576a25d815f49216512930648aacda7cb" />
+    <None Include="wwwroot\JobSite\.git\objects\51\e5c9d4a1505be5b80efe68a29041c280a08c5c" />
+    <None Include="wwwroot\JobSite\.git\objects\53\4d533433ab94ca11eb8dd3eea559c7f1c0f50e" />
+    <None Include="wwwroot\JobSite\.git\objects\54\0440ce89f2a408aa699b65100e18f15e0f09ca" />
+    <None Include="wwwroot\JobSite\.git\objects\54\e51ebf0f68379bb60cab274ff1e22e261a2bd1" />
+    <None Include="wwwroot\JobSite\.git\objects\54\f9fe3ac23b4a9976137fd063d7167acc8242fb" />
+    <None Include="wwwroot\JobSite\.git\objects\55\d76fbedf6bcae8360b1c7b2f9e09773194b10d" />
+    <None Include="wwwroot\JobSite\.git\objects\59\8cbcb93582f79b7f5ba44bba7d03063cac9528" />
+    <None Include="wwwroot\JobSite\.git\objects\5b\6b9e1faae98ee8d07699a9cea827fcfcec6262" />
+    <None Include="wwwroot\JobSite\.git\objects\5b\77f6d0d75ad941e273d7c2361b012e8f0a458c" />
+    <None Include="wwwroot\JobSite\.git\objects\5c\2cd8806ffed9b2002446b3cb6e1ddc70231f3a" />
+    <None Include="wwwroot\JobSite\.git\objects\5c\d6cff6d6f6cf438a882e366420dbcc5dddd3f1" />
+    <None Include="wwwroot\JobSite\.git\objects\5d\2aff58ac225d84d5cf8d3543977bb1c0dc2505" />
+    <None Include="wwwroot\JobSite\.git\objects\5d\627e701e86da4dde4cbb072995979de86a3db9" />
+    <None Include="wwwroot\JobSite\.git\objects\5d\a8cc4be57e92078b3a4e23441e2d5a35702a40" />
+    <None Include="wwwroot\JobSite\.git\objects\5d\fcf9b78bbb4713c141c88de862f1bfbd5ca671" />
+    <None Include="wwwroot\JobSite\.git\objects\5e\71597c7a951ac208ef847c5750d1a5a46727b6" />
+    <None Include="wwwroot\JobSite\.git\objects\5f\7769fd38148ce01a56cd6a7db75a89edba3c31" />
+    <None Include="wwwroot\JobSite\.git\objects\60\1c25b53f144844ea4fb5ec8fc07f5e0504dec2" />
+    <None Include="wwwroot\JobSite\.git\objects\61\01eba51f0bbe078a1d83e4b08066453778c8e6" />
+    <None Include="wwwroot\JobSite\.git\objects\62\477ff7f989708b8380236ac37bebdf6300b79d" />
+    <None Include="wwwroot\JobSite\.git\objects\62\7dbb9b76e181ea7ae7253099bf41b7142cd45d" />
+    <None Include="wwwroot\JobSite\.git\objects\62\9a263c92115def99d8de6f1a3c5a46bf7ca1f1" />
+    <None Include="wwwroot\JobSite\.git\objects\62\d4fa739b4f430a787e3372dadb9b3da5bb5d83" />
+    <None Include="wwwroot\JobSite\.git\objects\63\05a10e4ebb09f56b8da07f8d15918f6001d863" />
+    <None Include="wwwroot\JobSite\.git\objects\65\9836426f018c4602333518b3d4ef02b7caafe2" />
+    <None Include="wwwroot\JobSite\.git\objects\65\98c9a9ddd3e1b430293b61750c0e24e68fcd76" />
+    <None Include="wwwroot\JobSite\.git\objects\66\728ebfb5ce456fa68cf82c5520640669119a66" />
+    <None Include="wwwroot\JobSite\.git\objects\66\81e9d3286c9009c37898e149fd5c6bc2100f07" />
+    <None Include="wwwroot\JobSite\.git\objects\67\b9d7a2c8737327bc9ef3815b5c0eefe50f2063" />
+    <None Include="wwwroot\JobSite\.git\objects\69\2a648e8d7078f5125371848219d9abebad554e" />
+    <None Include="wwwroot\JobSite\.git\objects\69\d9fd0b1f4405a03aaa8c41d0b089168aefa43e" />
+    <None Include="wwwroot\JobSite\.git\objects\6b\a7d9da871a2fb656bfb736715a2433289f3400" />
+    <None Include="wwwroot\JobSite\.git\objects\6c\fd56609567bc9db55186415c694d1d32808fc2" />
+    <None Include="wwwroot\JobSite\.git\objects\6d\9fd4d19f678550adbc8dc4204cb09a42d06ab8" />
+    <None Include="wwwroot\JobSite\.git\objects\6e\4c35a82677c5e92bdee672109ff1779fdc99de" />
+    <None Include="wwwroot\JobSite\.git\objects\6e\c5c18521a1830d653a01080ccba937d1541533" />
+    <None Include="wwwroot\JobSite\.git\objects\6e\e3a3bd5b52860ea3e99fdf8633ad683943245e" />
+    <None Include="wwwroot\JobSite\.git\objects\6f\a907f54d395b03d6dc16e205fbdc9b5284a141" />
+    <None Include="wwwroot\JobSite\.git\objects\70\5ed747a1b92a50356e2feeee9043031fdf5c41" />
+    <None Include="wwwroot\JobSite\.git\objects\70\6c77a0a8562a24a8975e68d0af50dba06fbc51" />
+    <None Include="wwwroot\JobSite\.git\objects\70\78c2bf79ae8c169039395950144e0c62f0dec7" />
+    <None Include="wwwroot\JobSite\.git\objects\71\3dcaae1cc577894f299310710e0df96016ea37" />
+    <None Include="wwwroot\JobSite\.git\objects\72\1dbccb0d21adca74f4dc23a0a0015d07d48968" />
+    <None Include="wwwroot\JobSite\.git\objects\72\7486b4fd7b38e5597440b619f74e7828f5b450" />
+    <None Include="wwwroot\JobSite\.git\objects\72\b5c0f749d42eeeff44b206c95038197596acdf" />
+    <None Include="wwwroot\JobSite\.git\objects\73\df08fbdb7595d953055ef04fdd035d00b7324d" />
+    <None Include="wwwroot\JobSite\.git\objects\73\f33fb3aa529308d1f3f2f4fc253c4abed95374" />
+    <None Include="wwwroot\JobSite\.git\objects\76\4606c7c31c16dcb08b7ec62754dddfa1557407" />
+    <None Include="wwwroot\JobSite\.git\objects\76\b622fe4306160486c28adfe38295d02d4148fe" />
+    <None Include="wwwroot\JobSite\.git\objects\76\c4bcb0cee504d8472971eba663ed313dc8df33" />
+    <None Include="wwwroot\JobSite\.git\objects\77\377d9533477c6b808306a9c04bec2ffa528103" />
+    <None Include="wwwroot\JobSite\.git\objects\78\2247d819a5daf073acb16426ea26058b7fb5e2" />
+    <None Include="wwwroot\JobSite\.git\objects\7a\89b2167185b06b526456b87f889acfaca234ae" />
+    <None Include="wwwroot\JobSite\.git\objects\7b\015bc78e9af5867f2753ff5ca2480f0fc77f8b" />
+    <None Include="wwwroot\JobSite\.git\objects\7f\1a9cb547f8b593120c5c5d47c0ea9a813c7016" />
+    <None Include="wwwroot\JobSite\.git\objects\7f\280d34a2160848266a4cafd1733f7b7dc4a267" />
+    <None Include="wwwroot\JobSite\.git\objects\80\97b277b1489b8eacb3512ea8c598b63cc3f0e0" />
+    <None Include="wwwroot\JobSite\.git\objects\80\a7d526bb5fadfb6285330e369c37bf11fe41e9" />
+    <None Include="wwwroot\JobSite\.git\objects\81\09451047dc1b2dd5be000d42dd40c9e3508ac4" />
+    <None Include="wwwroot\JobSite\.git\objects\82\348519b7e3a8dbb953f0f2d911a088fd06bc1b" />
+    <None Include="wwwroot\JobSite\.git\objects\82\9f69cac3a82919d0705ce3ba2c70fb0283ae4f" />
+    <None Include="wwwroot\JobSite\.git\objects\84\49c2a0d6df8eb8e528b08192f705dd84e48e33" />
+    <None Include="wwwroot\JobSite\.git\objects\84\7ebd183be736a7f4e7084546502954f58f9a91" />
+    <None Include="wwwroot\JobSite\.git\objects\85\22ce3d15879d2f161e991f5674dba5fd9b7ce1" />
+    <None Include="wwwroot\JobSite\.git\objects\85\514ca82d32f6f98d1d49a360b030bcebcd3c9d" />
+    <None Include="wwwroot\JobSite\.git\objects\85\5c845e538b65548118279537a04eab2ec6ef0d" />
+    <None Include="wwwroot\JobSite\.git\objects\85\61e181adf05fbc285c993cb4664872cd11453f" />
+    <None Include="wwwroot\JobSite\.git\objects\85\64a39e6117be62b0b620f96d4ef4d3e01c07c9" />
+    <None Include="wwwroot\JobSite\.git\objects\86\c52ba26ea601a272e9ed113ac39db84a5294ff" />
+    <None Include="wwwroot\JobSite\.git\objects\87\d828493f15d2a38ffed6e5f4a6fa9b6b1fe48a" />
+    <None Include="wwwroot\JobSite\.git\objects\87\d88f39206d17efe97ba2f9b52ceb3868ef9230" />
+    <None Include="wwwroot\JobSite\.git\objects\88\eb2d6c809c1a7a94dead67f023a2ee2ecf262e" />
+    <None Include="wwwroot\JobSite\.git\objects\8a\a3ed2732adc3bb5ca65124348d2438efdd2ba0" />
+    <None Include="wwwroot\JobSite\.git\objects\8a\e415cb2ef8f3b5fc666838249161824e9406c0" />
+    <None Include="wwwroot\JobSite\.git\objects\8c\05ad76793bf2aa3d8caf90b9737b2207f5b0a3" />
+    <None Include="wwwroot\JobSite\.git\objects\8c\296969ff440083931c6208855617723db152f1" />
+    <None Include="wwwroot\JobSite\.git\objects\8c\ef46c393d0500b3204a1c1a7a8bb4c67e621f5" />
+    <None Include="wwwroot\JobSite\.git\objects\8d\66ab0c0c554f68fdabb87ae4244102d0ed8b0b" />
+    <None Include="wwwroot\JobSite\.git\objects\8e\eeb7301e134221a066d56be79f47df61967ca4" />
+    <None Include="wwwroot\JobSite\.git\objects\8f\a72c10d22a8000be578460942a9da19c5725a7" />
+    <None Include="wwwroot\JobSite\.git\objects\8f\bd871fb5bc1a33b3a4b35bccdcbf5baab553da" />
+    <None Include="wwwroot\JobSite\.git\objects\8f\f7b56ab49c03df9a34b98e8d2f24c8f5bd8851" />
+    <None Include="wwwroot\JobSite\.git\objects\93\2ebcf10a72571719d3233fb77e934604717c95" />
+    <None Include="wwwroot\JobSite\.git\objects\94\2ce257481e0415185cc83954d6340323a90a7a" />
+    <None Include="wwwroot\JobSite\.git\objects\95\e6e4325bb44aa6caf4c40d914810f25616db88" />
+    <None Include="wwwroot\JobSite\.git\objects\96\7ce903126b5ba202724df6584c2f234eafc0bb" />
+    <None Include="wwwroot\JobSite\.git\objects\97\144293e4ee1908f1206c5dc150e265f992d197" />
+    <None Include="wwwroot\JobSite\.git\objects\98\421d2568f3b9daaaa23b80cdf2b58e68b8fc45" />
+    <None Include="wwwroot\JobSite\.git\objects\98\d4dd5582cb937714c55dfc9fbcfcd12d695603" />
+    <None Include="wwwroot\JobSite\.git\objects\99\1e03e4335b684f0e76fbb09aed0aef6fd68a4c" />
+    <None Include="wwwroot\JobSite\.git\objects\9b\9566f4b968a5d5325c7ece1f10fee3b5d8e674" />
+    <None Include="wwwroot\JobSite\.git\objects\9c\d4225074e08bf058c5478d9f205aac667940e5" />
+    <None Include="wwwroot\JobSite\.git\objects\9e\527178ffcd0679a3910a4f0e63e9a35aaa864b" />
+    <None Include="wwwroot\JobSite\.git\objects\9e\aecb37996e205f1027fce2df59fbaa500657a8" />
+    <None Include="wwwroot\JobSite\.git\objects\9e\c298b9d932b7e9b031debb8e2bba10a59400c5" />
+    <None Include="wwwroot\JobSite\.git\objects\9f\70d3aed60d815bb2700f4e29565a4c8be51009" />
+    <None Include="wwwroot\JobSite\.git\objects\9f\7d9e90c32f797e89bd00efd24162ec1c1e33a8" />
+    <None Include="wwwroot\JobSite\.git\objects\9f\b7798e5771495a0982e51e215bf7c5e3941689" />
+    <None Include="wwwroot\JobSite\.git\objects\a2\2ecb05ca4c85f6f07634441c98a772871ce94a" />
+    <None Include="wwwroot\JobSite\.git\objects\a2\42a52fb35f57c82f0161a4e9ef32a705a2b429" />
+    <None Include="wwwroot\JobSite\.git\objects\a4\5de9fd8e34e6c73fe0b85043c9a068bdf88081" />
+    <None Include="wwwroot\JobSite\.git\objects\a7\246b4dd8a7cc2ac68f317f77ac2e8cb0fc23cb" />
+    <None Include="wwwroot\JobSite\.git\objects\a9\f84695031139c2542f582e9312310f2186ff58" />
+    <None Include="wwwroot\JobSite\.git\objects\aa\04da0996b13343d3faa59aaf968288915c7cc3" />
+    <None Include="wwwroot\JobSite\.git\objects\aa\79e473dca4efda30f91f712461777f26f84bb7" />
+    <None Include="wwwroot\JobSite\.git\objects\ac\23789aeeb2e55e17b32f4e5c850696dfa7ba5f" />
+    <None Include="wwwroot\JobSite\.git\objects\ad\2b5b49978cf78f0a0e99421b6aa5dada9ac133" />
+    <None Include="wwwroot\JobSite\.git\objects\ad\e2e72010aa1f80a452bcbff5d03a9c3a8ce0a2" />
+    <None Include="wwwroot\JobSite\.git\objects\ae\5ed020387a89c0cfb26f10d0e403167c55952d" />
+    <None Include="wwwroot\JobSite\.git\objects\ae\cb5dd1c85672f3826b80cf79133d36e36541ca" />
+    <None Include="wwwroot\JobSite\.git\objects\af\1cf59b6b0863b6ff52f2c08ff8c4460e6be51c" />
+    <None Include="wwwroot\JobSite\.git\objects\b0\aa7005b2803c8525a49c80f47ebf8027d8fb45" />
+    <None Include="wwwroot\JobSite\.git\objects\b1\230dc288c08c744b89de931663d65d005e5c63" />
+    <None Include="wwwroot\JobSite\.git\objects\b4\25e0424bb4fcfb7334559ad2038e7de0438a7e" />
+    <None Include="wwwroot\JobSite\.git\objects\b6\412bd3a6dd35cdbd42f1036e1030571e4e04e1" />
+    <None Include="wwwroot\JobSite\.git\objects\b7\20a3d541141b497aeb8a60df1429c2e8baba8e" />
+    <None Include="wwwroot\JobSite\.git\objects\b7\f29c931c6131ddb47403c3e9dc0a83a05c760f" />
+    <None Include="wwwroot\JobSite\.git\objects\b7\f8dfa3e3aa9dfdeb543af9fd50285501406564" />
+    <None Include="wwwroot\JobSite\.git\objects\b8\9ad50076b5a946372bf82acd50b76c799c6ce8" />
+    <None Include="wwwroot\JobSite\.git\objects\b9\4791c1c2017fea471ec6ba3f609bc470164683" />
+    <None Include="wwwroot\JobSite\.git\objects\ba\4f70ff393acb160407320cd741b5d2daba1060" />
+    <None Include="wwwroot\JobSite\.git\objects\bc\6d6b7a69da9d78eb61be9549cf89f87d883cc4" />
+    <None Include="wwwroot\JobSite\.git\objects\bd\af9913d11cf0b5f2cafee49aaafb0961506664" />
+    <None Include="wwwroot\JobSite\.git\objects\be\845dc0b30131bcc5294f7313225e2f59ab1aae" />
+    <None Include="wwwroot\JobSite\.git\objects\be\acafd4e0f10165e2cb7fbab6e11e4bb14c2d62" />
+    <None Include="wwwroot\JobSite\.git\objects\bf\2b9492d13d2b83c5202351fa4212da6ba1a7b1" />
+    <None Include="wwwroot\JobSite\.git\objects\bf\7cfa0a99ad25322e2f672d730198adf930cff0" />
+    <None Include="wwwroot\JobSite\.git\objects\c0\1466daa292555a44a48f64e3d29ffe57d52c9c" />
+    <None Include="wwwroot\JobSite\.git\objects\c1\00806c65583c6031e65cf118f18ce5f3d1ec2f" />
+    <None Include="wwwroot\JobSite\.git\objects\c1\21de20e8a8ce4ed9f536f55e0342b726892ff7" />
+    <None Include="wwwroot\JobSite\.git\objects\c3\5b06876d8ba0f90281b1f935994aad4436762a" />
+    <None Include="wwwroot\JobSite\.git\objects\c4\9563cc9dbf5d71be4157ae4805f0fc2a4d0e1d" />
+    <None Include="wwwroot\JobSite\.git\objects\c5\77562816564d94a0b0157f1acdd41355573d70" />
+    <None Include="wwwroot\JobSite\.git\objects\c5\dc418c3d5b0a5d4f588f5edbd082d077c92323" />
+    <None Include="wwwroot\JobSite\.git\objects\c8\bb288edfb65e0777698312bef8cee48c736214" />
+    <None Include="wwwroot\JobSite\.git\objects\c9\86b491fc0bf289f70bd5faa667503f25debae6" />
+    <None Include="wwwroot\JobSite\.git\objects\cb\7922441518b9aede0d313391e2f97feef59646" />
+    <None Include="wwwroot\JobSite\.git\objects\cb\af5109a433c04a6cda11282c62c4fb93633a67" />
+    <None Include="wwwroot\JobSite\.git\objects\cc\0ab5e13133f45e47131e08d213c83b1bcc1d59" />
+    <None Include="wwwroot\JobSite\.git\objects\cc\2cd6faf8837fdf8783301749c796f04a52c607" />
+    <None Include="wwwroot\JobSite\.git\objects\cd\1baa6c449afc575224be0ac22744f9fb18c883" />
+    <None Include="wwwroot\JobSite\.git\objects\cd\653f16ad6032a12e7eaa3c70babeb034016f8a" />
+    <None Include="wwwroot\JobSite\.git\objects\cd\df5a1036059949fb116f7e6a82b6a3c864c5f0" />
+    <None Include="wwwroot\JobSite\.git\objects\ce\11294501f99475a3a5cffcfdcd7bfbf8dad4b8" />
+    <None Include="wwwroot\JobSite\.git\objects\ce\77462975f8c1b9ddc2d4e6d3bfb384971303de" />
+    <None Include="wwwroot\JobSite\.git\objects\ce\81d9829a607810b43dc1c900ee2030fd5b8556" />
+    <None Include="wwwroot\JobSite\.git\objects\cf\9bedf1335145bb480db1da53ccc1e9e3b4f482" />
+    <None Include="wwwroot\JobSite\.git\objects\d0\9368384dafd9b1f9650fe012f4c590a52312d3" />
+    <None Include="wwwroot\JobSite\.git\objects\d0\a8ba3e3f9307e80b8a8cd0458eae0f47c9ff8b" />
+    <None Include="wwwroot\JobSite\.git\objects\d1\1facb978da57057bba9a67515fe6c937b5b842" />
+    <None Include="wwwroot\JobSite\.git\objects\d1\29631423d7017d45861a633382b59c0aafde7c" />
+    <None Include="wwwroot\JobSite\.git\objects\d2\1c396d733becab03246b00df755aa90f850ffe" />
+    <None Include="wwwroot\JobSite\.git\objects\d4\0bbd7dd262cad9bad0184b46f1641cfe5e9950" />
+    <None Include="wwwroot\JobSite\.git\objects\d4\561a90a740a53f6778fbb0553fdb8f52c260c7" />
+    <None Include="wwwroot\JobSite\.git\objects\d4\8957a9680161178898ba8ac1ebf04c0adba58c" />
+    <None Include="wwwroot\JobSite\.git\objects\d6\31808625bd31e3db7ead6045d7ea75d49489e8" />
+    <None Include="wwwroot\JobSite\.git\objects\d6\92fd63828bce4de6b961299f2dd23cc271c4b0" />
+    <None Include="wwwroot\JobSite\.git\objects\d8\40454b73a0ec3775f59557c1573a923f413a57" />
+    <None Include="wwwroot\JobSite\.git\objects\d8\b4313433d107db3eaa13447994c62adc3cb339" />
+    <None Include="wwwroot\JobSite\.git\objects\d8\cd0c3c067c09673eec9e361d4f2921f7b2f36b" />
+    <None Include="wwwroot\JobSite\.git\objects\d9\4a2e0ec52b65a8ac81409dd7098f2da8e867dd" />
+    <None Include="wwwroot\JobSite\.git\objects\da\e5053fea8a6cef6b763f97a6461e307a50107d" />
+    <None Include="wwwroot\JobSite\.git\objects\db\5ba66d9285bcd30d485c1dc286d9ff100ee461" />
+    <None Include="wwwroot\JobSite\.git\objects\db\632160dae9d2e26bd612d2754c5e222879fd89" />
+    <None Include="wwwroot\JobSite\.git\objects\e0\622bd99994e42b57bafdc1f79fc22538355977" />
+    <None Include="wwwroot\JobSite\.git\objects\e0\6a85a7126a3d0990f35e84a28a7c21f582179a" />
+    <None Include="wwwroot\JobSite\.git\objects\e0\827344728a57b0014352746e40332d5f4c9203" />
+    <None Include="wwwroot\JobSite\.git\objects\e1\060d44688c3b7db155c61f39e53f152e9b4007" />
+    <None Include="wwwroot\JobSite\.git\objects\e1\e41cc1672b3695ee1d26d656af1dbedeb5f9aa" />
+    <None Include="wwwroot\JobSite\.git\objects\e2\b759acad52b4c5a6d9fc86decafbb906e179ea" />
+    <None Include="wwwroot\JobSite\.git\objects\e2\f458b125dd7f71ebe7c2778571916693064a2f" />
+    <None Include="wwwroot\JobSite\.git\objects\e3\733eed566d76ba97db8f15fdcb63f809a6fd30" />
+    <None Include="wwwroot\JobSite\.git\objects\e4\43a77d62788505d578af67ca2ceec8380b27fc" />
+    <None Include="wwwroot\JobSite\.git\objects\e4\9ab9adf05333219f2ce78e1de383bc799b7fb1" />
+    <None Include="wwwroot\JobSite\.git\objects\e6\ac8e9ec455ab92ea959ebe10e4d8297c78fea5" />
+    <None Include="wwwroot\JobSite\.git\objects\e7\e30321773d935df7d1bfc0054f5ea5cbc5973b" />
+    <None Include="wwwroot\JobSite\.git\objects\e8\36475870da67f3c72f64777c6e0f37d9f4c87b" />
+    <None Include="wwwroot\JobSite\.git\objects\e9\b14fc580a4826ad762b742e9102f4bfb8a152a" />
+    <None Include="wwwroot\JobSite\.git\objects\e9\f60ca953f93e35eab4108bd414bc02ddcf3928" />
+    <None Include="wwwroot\JobSite\.git\objects\eb\963038a71982e5f16808bcee36d2de15b9fa0c" />
+    <None Include="wwwroot\JobSite\.git\objects\ec\3e98cae27207d6cad622f6d998ae84f7d0b6fe" />
+    <None Include="wwwroot\JobSite\.git\objects\f1\17a4989afbda4d60acbbea63817350e1be6be0" />
+    <None Include="wwwroot\JobSite\.git\objects\f1\5aa684f22e01ea301b83984fb5919d90d958eb" />
+    <None Include="wwwroot\JobSite\.git\objects\f3\3b6e985837cb006a1ab15692c3c225ef894981" />
+    <None Include="wwwroot\JobSite\.git\objects\f3\5e3cf5bf23c9fd426646b57a6245b2fb18c9bf" />
+    <None Include="wwwroot\JobSite\.git\objects\f4\25bb77a4b799c39756a1f2d7706b1537e7fc36" />
+    <None Include="wwwroot\JobSite\.git\objects\f4\3cc39cf7cc9ab58fa04be703b6db1a3346eadb" />
+    <None Include="wwwroot\JobSite\.git\objects\f4\441a26318a35321bd9240ac58620b5d837f5bb" />
+    <None Include="wwwroot\JobSite\.git\objects\f4\af9e580ee0c6151c24509b566dddf2c8689523" />
+    <None Include="wwwroot\JobSite\.git\objects\f4\db39cd8392096234ced3928d3d58cf806c03b2" />
+    <None Include="wwwroot\JobSite\.git\objects\f6\361b9c0496fc4274f4b627a9ed39974ca45a5c" />
+    <None Include="wwwroot\JobSite\.git\objects\f7\86c421c3f8fb51df9fe48ed736dd5ce448fa6c" />
+    <None Include="wwwroot\JobSite\.git\objects\f7\af37a4efc23a1d88144a5108bded9c30293412" />
+    <None Include="wwwroot\JobSite\.git\objects\f8\340812cdd7486d7d3dfa1f45e1fd783af01ae5" />
+    <None Include="wwwroot\JobSite\.git\objects\f8\5809c418cd8cfffa1494e32deef917239ab753" />
+    <None Include="wwwroot\JobSite\.git\objects\f8\87480226e2cfde4b636bca381582a63b1fe8fe" />
+    <None Include="wwwroot\JobSite\.git\objects\f9\c140b87b23600f4317417bb9edf27d9154d986" />
+    <None Include="wwwroot\JobSite\.git\objects\f9\c22f19fe7d15ba90d0c614441af4112dd88e3b" />
+    <None Include="wwwroot\JobSite\.git\objects\fa\5498657053c923b40f5b4866b032520c78feab" />
+    <None Include="wwwroot\JobSite\.git\objects\fb\18d9b5a06f0eefee532c9fa44a4205dae3785c" />
+    <None Include="wwwroot\JobSite\.git\objects\fb\a889f2a1638ff134201174a04061dfa8dde354" />
+    <None Include="wwwroot\JobSite\.git\objects\fc\7cc87be82d99032e2bd9cf24623548ce806c1e" />
+    <None Include="wwwroot\JobSite\.git\objects\fc\dba284625d292b27592a5c3489280ca6dd0e28" />
+    <None Include="wwwroot\JobSite\.git\objects\fe\97112d982bcf594032522b100898ecf7a8628d" />
+    <None Include="wwwroot\JobSite\.git\objects\ff\82130a7af0dffa8723e5c00622924c13451a53" />
+    <None Include="wwwroot\JobSite\.git\objects\ff\98daba16e4974421df1396ba26053091c0f58b" />
+    <None Include="wwwroot\JobSite\.git\refs\heads\main" />
+    <None Include="wwwroot\JobSite\.git\refs\remotes\origin\main" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\User\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\User\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,376 @@
+﻿@{
+    Layout = null;
+}
+@model List<Work>
+
+<style>
+    .list {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+    }
+    .item {
+        border: 1px solid #9999;
+        border-radius: 10px;
+        padding: 10px;
+    }
+        .item .img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .item .content {
+            margin-top: 10px;
+            text-align: center;
+            color: #555;
+            font-size: 19px;
+        }
+            .item .content .des {
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-around;
+            }
+                .item .content .des .links_locat {
+                    display: flex;
+                    gap: 20px;
+                }
+            .item .content .more {
+                background-color: #83B5FE;
+                color: #fff;
+                border: 1px solid #83B5FE;
+                border-radius: 10px;
+                font-size: 18px;
+                padding: 4px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+                .item .content .more:hover {
+                    background-color: #fff;
+                    border-color: #83B5FE;
+                    color: #83B5FE;
+                }
+    .listPage {
+        padding: 10px;
+        text-align: center;
+        list-style: none;
+    }
+        .listPage li {
+            background-color: #fff;
+            border: 1px solid #83B5FE;
+            color: #83B5FE;
+            display: inline-block;
+            margin: 0 10px;
+            cursor: pointer;
+            padding: 7px;
+            width: 40px;
+            border-radius: 50%;
+        }
+        .listPage .active {
+            background-color: #83B5FE;
+            color: #fff;
+        }
+
+    .job_filter {
+        position: sticky;
+        top: 100px; 
+        height: fit-content;
+    }
+
+</style>
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="bradcam_area_alt">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h2 style="color: #83b5fe;">İş elanları</h2>
+                    <h3>@Model.Count+ Aktiv iş elanı</h3>
+                    <p>Yeni işinizi qarşılayın</p>
+                </div>
+                <div class="bradcam_img">
+                    <img src="~/JobSite/img/jobListPageImg.png" alt="jobUndraw">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+
+<div class="job_listing_area plus_padding">
+    <div class="job_listing_area_alt">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="job_filter white-bg" style="border-radius: 6px;">
+                    <div class="form_inner white-bg">
+                        <h3>Filter</h3>
+                        <form class="form-container" method="get">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select class="wide" id="fieldDropdown" name="FieldId">
+                                            <option value="" selected>Sahə</option>
+                                            @foreach (var f in ViewBag.Fields)
+                                            {
+                                                <option value="@f.Value">@f.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select id="categoryDropdown" name="CategoryId" class="wide">
+                                            <option value="" selected>Kateqoriya</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select id="CityId" class="wide" name="CityId">
+                                            <option value="" selected>Şəhər</option>
+                                            @foreach (var c in ViewBag.Cities)
+                                            {
+                                                <option value="@c.Value">@c.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select id="Education" class="wide" name="Education">
+                                            <option value="" selected>Təhsil</option>
+                                            <option value="Elmi dərəcə">Elmi dərəcə</option>
+                                            <option value="Ali">Ali</option>
+                                            <option value="Natamam ali">Natamam ali</option>
+                                            <option value="Orta texniki">Orta texniki</option>
+                                            <option value="Orta">Orta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select id="WorkExprience" class="wide" name="WorkExprience">
+                                            <option value="" selected>İş təcrübəsi</option>
+                                            <option value="1 ildən aşağı">1 ildən aşağı</option>
+                                            <option value="1 ildən 3 ilə qədər">1 ildən 3 ilə qədər</option>
+                                            <option value="3 ildən 5 ilə qədər">3 ildən 5 ilə qədər</option>
+                                            <option value="5 ildən artıq">5 ildən artıq</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <input id="MinSalary" type="number" name="MinSalary" placeholder="Min. Maaş">
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="filterButton" class="boxed-btn3 w-100" type="button">Axtar</button>
+                            @* <button class="boxed-btn4 w-100 mt-2" type="submit">Sıfırla</button> *@
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="recent_joblist_wrap">
+                    <div class="recent_joblist white-bg ">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4>İş elanları</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- -->
+                <div class="list">
+                    @foreach (var w in Model)
+                    {
+                        <div class="item">
+                            <div class="img">
+                                <div class="icon"><i class="@w.Field.Icon"></i></div>
+                            </div>
+                            <div class="content">
+                                <div class="title">@w.Position</div>
+                                <div class="des">
+                                    <div class="links_locat">
+                                        <div class="location">
+                                            <p> <i class="fa-solid fa-location-dot"></i> @w.City.Name</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i> @w.ModeOfWork</p>
+                                        </div>
+                                        <div class="location">
+                                            <p><i class="fa-solid fa-manat-sign"></i>
+                                             @(w.IsNegotiable ? "R.y ilə" : w.Salary)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="more" asp-controller="Jobs" asp-action="JobDetails" asp-route-id="@w.Id">ㅤƏtraflıㅤ</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <ul class="listPage">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Filtr-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("filterButton").addEventListener("click", function (e) {
+            Filtr(e);
+        });
+    });
+    function Filtr(e) {
+        e.preventDefault();
+        let field = document.querySelector("#fieldDropdown").value;
+        let category = document.querySelector("#categoryDropdown").value;
+        let city = document.querySelector("#CityId").value;
+        let education = document.querySelector("#Education").value;
+        let workExprience = document.querySelector("#WorkExprience").value;
+        let minSalary = document.querySelector("#MinSalary").value;
+        minSalary = minSalary ? parseInt(minSalary) : null;
+
+        const list = document.querySelector(".list");
+        const listPage = document.querySelector(".listPage");
+
+        $.ajax({
+            type: "GET",
+            url: "/Jobs/Filtr",
+            data: { FieldId: field, 
+                    CategoryId: category,
+                    CityId: city, 
+                    Education: education, 
+                    WorkExprience: workExprience, 
+                    MinSalary: minSalary 
+            },
+            success: function(response) {
+                console.log(response);
+                list.innerHTML = "";
+                if(response.length == 0) {
+                    list.innerHTML = "<p style='font-size: 20px'>İş elanı tapılmadı</p>";
+                    listPage.style.display = "none";
+                }
+                else {
+                    response.forEach((w) => {
+                        let item = `<div class="item">
+                                        <div class="img">
+                                            <div class="icon"><i class="${w.fieldIcon}"></i></div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="title">${w.position}</div>
+                                            <div class="des">
+                                                <div class="links_locat">
+                                                    <div class="location">
+                                                        <p> <i class="fa-solid fa-location-dot"></i>${w.cityName}</p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-clock-o"></i> ${w.modeOfWork}</p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p><i class="fa-solid fa-manat-sign"></i>
+                                                        ${w.isNegotiable ? "R.y ilə" : w.salary}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a href="/Jobs/JobDetails/${w.id}" class="more">ㅤƏtraflıㅤ</a>
+                                        </div>
+                                   </div>`;
+                        list.innerHTML += item;
+                    });
+                    listPage.style.display = "block";
+                }
+            },
+            error: function (error) {
+                console.error("Xəta baş verdi:", error);
+            }
+        });
+        return false;
+    }
+</script>
+
+
+<!-- Filter area pos: sticky-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const filterBox = document.querySelector(".job_filter");
+    const jobList = document.querySelector(".list"); 
+    const footer = document.querySelector("footer"); 
+
+    function updateStickyPosition() {
+        const jobListRect = jobList.getBoundingClientRect();
+        const footerRect = footer.getBoundingClientRect();
+
+        if (footerRect.top <= window.innerHeight - 75) {
+            filterBox.style.position = "relative";
+            filterBox.style.top = `${jobListRect.height - filterBox.offsetHeight + 75}px`;
+        } else {
+            filterBox.style.position = "sticky";
+            filterBox.style.top = "100px";
+        }
+    }
+
+    window.addEventListener("scroll", updateStickyPosition);
+    updateStickyPosition(); 
+});
+
+</script>
+<!--Pagination js-->
+<script>
+    let thisPage = 1;
+    let limit = 6;
+    let list = document.querySelectorAll('.list .item');
+
+    function loadItem() {
+        let beginGet = limit * (thisPage - 1);
+        let endGet = limit * thisPage - 1;
+        list.forEach((item, key) => {
+            if (key >= beginGet && key <= endGet) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        })
+        listPage();
+    }
+    loadItem();
+    function listPage() {
+        let count = Math.ceil(list.length / limit);
+        document.querySelector('.listPage').innerHTML = '';
+
+        if (thisPage != 1) {
+            let prev = document.createElement('li');
+            prev.innerText = 'PREV';
+            prev.style.width = '50px';
+            prev.style.borderRadius = '40px';
+            prev.setAttribute('onclick', "changePage(" + (thisPage - 1) + ")");
+            document.querySelector('.listPage').appendChild(prev);
+        }
+
+        for (i = 1; i <= count; i++) {
+            let newPage = document.createElement('li');
+            newPage.innerText = i;
+            if (i == thisPage) {
+                newPage.classList.add('active');
+            }
+            newPage.setAttribute('onclick', "changePage(" + i + ")");
+            document.querySelector('.listPage').appendChild(newPage);
+        }
+
+        if (thisPage != count) {
+            let next = document.createElement('li');
+            next.innerText = 'NEXT';
+            next.style.width = '50px';
+            next.style.borderRadius = '40px';
+            next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
+            document.querySelector('.listPage').appendChild(next);
+        }
+    }
+    function changePage(i) {
+        thisPage = i;
+        loadItem();
+    }
+</script>

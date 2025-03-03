@@ -1,0 +1,414 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateCV";
+    Layout = "~/Areas/User/Views/Shared/_UserLayout.cshtml";
+}
+
+@model Candidate
+
+<style>
+    .cke_notifications_area {
+        display: none !important;
+    }
+    .toggler input {
+        display: none;
+    }
+
+    .toggler label {
+        display: block;
+        position: relative;
+        width: 72px;
+        height: 36px;
+        border: 1px solid #d6d6d6;
+        border-radius: 36px;
+        background: #e4e8e8;
+        cursor: pointer;
+    }
+
+        .toggler label::after {
+            display: block;
+            border-radius: 100%;
+            background-color: #d7062a;
+            content: '';
+            animation-name: toggler-size;
+            animation-duration: 0.15s;
+            animation-timing-function: ease-out;
+            animation-direction: forwards;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+        }
+
+        .toggler label::after, .toggler label .toggler-on, .toggler label .toggler-off {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            width: 26px;
+            height: 26px;
+            transform: translateY(-50%) translateX(-50%);
+            transition: left 0.15s ease-in-out, background-color 0.2s ease-out, width 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
+        }
+
+    .toggler input:checked + label::after, .toggler input:checked + label .toggler-on, .toggler input:checked + label .toggler-off {
+        left: 75%;
+    }
+
+    .toggler input:checked + label::after {
+        background-color: #50ac5d;
+        animation-name: toggler-size2;
+    }
+
+    .toggler .toggler-on, .toggler .toggler-off {
+        opacity: 1;
+        z-index: 2;
+    }
+
+    .toggler input:checked + label .toggler-off, .toggler input:not(:checked) + label .toggler-on {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    .toggler .path {
+        fill: none;
+        stroke: #fefefe;
+        stroke-width: 7px;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+    }
+
+    @@keyframes toggler-size {
+        0%, 100% {
+            width: 26px;
+            height: 26px;
+        }
+
+        50% {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @@keyframes toggler-size2 {
+        0%, 100% {
+            width: 26px;
+            height: 26px;
+        }
+
+        50% {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .ppIcon {
+        background: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-size: 22px;
+        position: absolute;
+        bottom: 0;
+        right: -8px;
+        cursor: pointer;
+    }
+
+    .ppTrash {
+        background: red;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        position: absolute;
+        bottom: 0;
+        left: -8px;
+        cursor: pointer;
+    }
+
+    .ppImage {
+        position: relative;
+    }
+</style>
+
+
+
+<div class="layout-px-spacing">
+
+    <div class="middle-content container-xxl p-0">
+        <div class="row" id="cancel-row">
+
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Elanda düzəliş edin</h3>
+                    <a class="btn btn-outline-danger mb-2" asp-area="User" asp-controller="Profile" asp-action="MyAnnouncement">Ləğv et</a>
+                </div>
+                <form asp-area="User" asp-controller="Profile" asp-action="UpdateCV" method="post" enctype="multipart/form-data">
+                    <div class="d-flex gap-3 align-items-center justify-content-between">
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group ppImage">
+                                <i class="fa-regular fa-trash-can ppTrash" id="ppTrash"
+                                   onclick="deletePPimg()"
+                                   style="display: @(ViewBag.ExistingImageUrl == "/pImage/defaultUserImage.png" ? "none" : "flex");">
+                                </i>
+
+                                <img id="profileImage"
+                                     src="@ViewBag.ExistingImageUrl"
+                                     alt="Profile Image"
+                                     width="150" height="150"
+                                     style="border-radius: 50%; cursor: pointer; object-fit: cover"
+                                     onclick="document.getElementById('imageUpload').click()" />
+
+                                <i class="fa-regular fa-file-image ppIcon" onclick="document.getElementById('imageUpload').click()"></i>
+
+                                <!-- Gizli input[type="file"] -->
+                                <input type="file" id="imageUpload" name="pImage" style="display: none;" onchange="previewImage(event)" />
+                                <input type="hidden" id="existingImageUrl" name="existingImageUrl" value="@ViewBag.ExistingImageUrl" />
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <div>
+                                <label>UserId</label>
+                                <input type="text" asp-for="UserId" class="form-control" readonly />
+                            </div>
+
+                            <div>
+                                <label>Publish Date</label>
+                                <input type="text" asp-for="PublishDate" class="form-control" readonly />
+                            </div>
+
+                            <div>
+                                <label>End Date</label>
+                                <input type="text" asp-for="EndDate" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br />
+
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            <label>* Firstname</label>
+                            <input type="text" asp-for="Firstname" class="form-control" />
+                            <span asp-validation-for="Firstname" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Lastname</label>
+                            <input type="text" asp-for="Lastname" class="form-control" />
+                            <span asp-validation-for="Lastname" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Patronymic</label>
+                            <input type="text" asp-for="Patronymic" class="form-control" />
+                            <span asp-validation-for="Patronymic" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            <label>* Field</label>
+                            <select asp-for="FieldId" class="form-control" id="fieldDropdown" required>
+                                <option value="0" disabled selected>Select a Field</option>
+                                @foreach (var item in ViewBag.Fields)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Field" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Category</label>
+                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" id="categoryDropdown" class="form-control" required>
+                                <option value="" disabled selected>Select a Category</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* City</label>
+                            <select asp-for="CityId" class="form-control" required>
+                                <option value="0" disabled selected>Select a City</option>
+                                @foreach (var item in ViewBag.Cities)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <label>* Position</label>
+                        <input type="text" asp-for="Position" class="form-control" placeholder="Max. 150 characters" />
+                        <span asp-validation-for="Position" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            <label>* Age</label>
+                            <input type="number" asp-for="Age" class="form-control" />
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Gender</label>
+                            <select asp-for="Gender" class="form-control" required>
+                                <option value="0" disabled selected>Select a Gender</option>
+                                <option value="Kişi">Kişi</option>
+                                <option value="Qadın">Qadın</option>
+                                <option value="-">-</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Min Salary</label>
+                            <input type="number" asp-for="MinSalary" class="form-control" />
+                            <span asp-validation-for="MinSalary" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            <div>
+                                <label>* Education</label>
+                                <select asp-for="Education" class="form-control" required>
+                                    <option value="0" disabled selected>Select a Education</option>
+                                    <option value="Elmi dərəcə">Elmi dərəcə</option>
+                                    <option value="Ali">Ali</option>
+                                    <option value="Natamam ali">Natamam ali</option>
+                                    <option value="Orta texniki">Orta texniki</option>
+                                    <option value="Orta">Orta</option>
+                                    <option value="-">-</option>
+                                </select>
+                                <span asp-validation-for="Education" class="text-danger"></span>
+                            </div>
+                            <br />
+                            <div>
+                                <label>Education More</label>
+                                <textarea id="EducationMore" asp-for="EducationMore"></textarea>
+                                <span asp-validation-for="EducationMore" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div>
+                                <label>* Work Experience</label>
+                                <select asp-for="WorkExperience" class="form-control" required>
+                                    <option value="0" disabled selected>Select a Experience</option>
+                                    <option value="1 ildən aşağı">1 ildən aşağı</option>
+                                    <option value="1 ildən 3 ilə qədər">1 ildən 3 ilə qədər</option>
+                                    <option value="3 ildən 5 ilə qədər">3 ildən 5 ilə qədər</option>
+                                    <option value="5 ildən artıq">5 ildən artıq</option>
+                                    <option value="-">-</option>
+                                </select>
+                                <span asp-validation-for="WorkExperience" class="text-danger"></span>
+                            </div>
+                            <br />
+                            <div>
+                                <label>Work Experience More</label>
+                                <textarea id="WorkExperienceMore" asp-for="WorkExperienceMore"></textarea>
+                                <span asp-validation-for="WorkExperienceMore" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <label>* Skills</label>
+                        <textarea id="Skills" asp-for="Skills" class="form-control"></textarea>
+                        <span asp-validation-for="Skills" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div>
+                        <label>Add About (?)</label>
+                        <textarea id="JobInformation" asp-for="AddInformation"></textarea>
+                        <span asp-validation-for="AddInformation" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3">
+                        <div class="w-100">
+                            <label>* Email</label>
+                            <input type="Email" asp-for="Email" class="form-control" placeholder="jobcompany@gmail.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Phone Number</label>
+                            <input type="tel" asp-for="Phone" class="form-control" placeholder="(+994) 050 000 00 00" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <br />
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('WorkExperienceMore');
+    CKEDITOR.replace('EducationMore');
+    CKEDITOR.replace('Skills');
+    CKEDITOR.replace('AddInformation');
+</script>
+
+<script>
+
+    function deletePPimg() {
+        document.getElementById('profileImage').src = "/pImage/defaultUserImage.png"
+        document.getElementById('existingImageUrl').value = "/pImage/defaultUserImage.png"
+        document.getElementById('ppTrash').style.display = "none";
+    }
+
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('profileImage');
+            output.src = reader.result;
+            document.getElementById('ppTrash').style.display = "flex";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    $(document).ready(function () {
+        $('#fieldDropdown').change(function () {
+            var fieldId = $(this).val();
+            $('#categoryDropdown').empty();
+
+            if (fieldId) {
+                $.ajax({
+                    url: '/User/Profile/GetCategories',
+                    type: 'GET',
+                    data: { id: fieldId },
+                    success: function (data) {
+                        console.log(data)
+                        $('#categoryDropdown').append('<option value="">Select a Category</option>');
+                        $.each(data, function (index, category) {
+                            $('#categoryDropdown').append('<option value="' + category.id + '">' + category.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert('Category-lər yüklənərkən xəta baş verdi.');
+                    }
+                });
+            }
+            else {
+                $('#categoryDropdown').append('<option value="">Select a Category</option>');
+            }
+        });
+    });
+
+</script>
+
+
+
+
+

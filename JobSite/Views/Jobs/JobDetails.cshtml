@@ -1,0 +1,199 @@
+﻿@model Work
+@{
+    ViewData["Title"] = "JobDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string tel = Model.Phone.ToString().Substring(1);
+}
+
+<style>
+    .thumb {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #83B5FE;
+        font-size: 50px;
+    }
+</style>
+
+<div class="job_details_area">
+    <div class="job_details">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="job_details_header">
+                    <div class="single_jobs white-bg d-flex justify-content-between align-items-center" style="border-radius: 10px;">
+                        <div class="jobs_left d-flex align-items-center">
+                            <div class="thumb">
+                                <i class="@Model.Field.Icon"></i>
+                            </div>
+                            <div class="jobs_conetent">
+                                <a href="#"><h4>@Model.Position</h4></a>
+                                <div class="links_locat d-flex align-items-center">
+                                    <div class="location">
+                                        <div class="job_content_item">
+                                            <div class="job_content_item_text">
+                                                <p>elan tarixi</p>
+                                                <span>@Model.PublishDate.ToString("dd.MM.yyyy")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="location">
+                                        <div class="job_content_item">
+                                            <div class="job_content_item_text">
+                                                <p>bitmə tarixi</p>
+                                                <span>@Model.EndDate.ToString("dd.MM.yyyy")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jobs_right">
+                            <div class="apply_now">
+                                <a class="heart_mark" href="#">
+                                    <i class="ti-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descript_wrap white-bg" style="border-radius: 10px; margin-top: 5px;">
+                    <div class="single_wrap">
+                        <h4>İş barədə məlumat</h4>
+                        @Html.Raw(Model.JobInformation)
+                    </div>
+                    <div class="single_wrap">
+                        <h4>Namizədə tələblər</h4>
+                        @Html.Raw(Model.Requirements)
+                    </div>
+                    @if (Model.Note != null)
+                    {
+                        <div class="single_wrap">
+                            <h4>Qeyd</h4>
+                            <p>
+                                @Model.Note
+                            </p>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="job_sumary">
+                    <div class="summery_header">
+                        <h3>İş məlumatları</h3>
+                    </div>
+                    <div class="job_content">
+                        <div class="job_content_item">
+                            <div class="job_content_item">
+                                <i class="fas fa-briefcase"></i>
+
+                                <div class="job_content_item_text ml-2">
+                                    <p>sahə</p>
+                                    <span>@Model.Field.Name</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="job_content_item">
+                            <div class="job_content_item">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <div class="job_content_item_text ml-2">
+                                    <p>kateqoriya</p>
+                                    <span>@Model.Category.Name</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="job_content_item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div class="job_content_item_text ml-2">
+                                <p>şəhər</p>
+                                <span>@Model.City.Name</span>
+                            </div>
+                        </div>
+                        <div class="job_content_item">
+                            <i class="fas fa-calendar"></i>
+                            <div class="job_content_item_text ml-2">
+                                <p>yaş</p>
+                                <span>@Model.MinAge-@Model.MaxAge</span>
+                            </div>
+                        </div>
+                        <div class="job_content_item">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <div class="job_content_item_text ml-2">
+                                <p>təhsil</p>
+                                <span>@Model.Education</span>
+                            </div>
+                        </div>
+                        <div class="job_content_item">
+                            <i class="fa-solid fa-business-time"></i>
+                            <div class="job_content_item_text ml-2">
+                                <p>iş təcrübəsi</p>
+                                <span>@Model.WorkExperience</span>
+                            </div>
+                        </div>
+                        <div class="job_content_item">
+                            <i class="fa-solid fa-hourglass-start"></i>
+                            <div class="job_content_item_text ml-2">
+                                <p>iş rejimi</p>
+                                <span>@Model.ModeOfWork</span>
+                            </div>
+                        </div>
+                        <div class="job_content_item">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                            <div class="job_content_item_text ml-2">
+                                <p>Əmək haqqı</p>
+                                @if (Model.IsNegotiable)
+                                {
+                                    <span>R.y ilə</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.Salary azn</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="job_sumary mt-3">
+                    <div class="summery_header">
+                        <h3>Əlaqə məlumatları</h3>
+                    </div>
+                    <div class="job_content">
+                        <div class="job_content_item d-block">
+                            <div class="job_content_item">
+                                <i class="fa-regular fa-envelope"></i>
+                                <div class="job_content_item_text ml-2">
+                                    <p>email</p>
+                                    <a href="mailto:@Model.Email">@Model.Email</a>
+                                </div>
+                            </div>
+                            <div class="job_content_item mt-3">
+                                <i class="fa-solid fa-phone"></i>
+                                <div class="job_content_item_text ml-2">
+                                    <p>telefon</p>
+                                    <a href="tel:@tel">@Model.Phone</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="share_wrap d-flex mt-3">
+                    <span>Paylaş</span>
+                    <ul>
+                        <li>
+                            <a href="https://api.whatsapp.com/send?text=İlan%20Bağlantısı%20burada" target="_blank"> <i class="fa-brands fa-whatsapp"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/" target="_blank"> <i class="fa-brands fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="mailto:?subject=İlan Başlığı&body=İlan%20Bağlantısı%20burada" target="_blank"> <i class="fa-regular fa-envelope"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fa-brands fa-facebook"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

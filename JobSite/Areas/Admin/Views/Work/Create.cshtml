@@ -1,0 +1,226 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Work
+
+
+<div class="layout-px-spacing">
+
+    <div class="middle-content container-xxl p-0">
+        <div class="row" id="cancel-row">
+
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4>Add New Work</h4>
+                    <a class="btn btn-outline-danger mb-2" asp-area="Admin" asp-controller="Work" asp-action="Index">Cancel</a>
+                </div>
+                <form asp-area="Admin" asp-controller="Work" asp-action="Create" method="post">
+                    <input type="hidden" asp-for="UserId" value="@ViewBag.userId" />
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            <label>* Field</label>
+                            <select asp-for="FieldId" class="form-control" id="fieldDropdown" required>
+                                <option value="0" disabled selected>Select a Field</option>
+                                @foreach (var item in ViewBag.Fields)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Field" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Category</label>
+                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" id="categoryDropdown" class="form-control" required>
+                                <option value="" disabled selected>Select a Category</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* City</label>
+                            <select asp-for="CityId" class="form-control" required>
+                                <option value="0" disabled selected>Select a City</option>
+                                @foreach (var item in ViewBag.Cities)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <label>* Position</label>
+                        <input type="text" asp-for="Position" class="form-control" placeholder="Max. 150 characters" />
+                        <span asp-validation-for="Position" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            <label>* Min Age</label>
+                            <input type="number" asp-for="MinAge" class="form-control" />
+                            <span asp-validation-for="MinAge" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Max Age</label>
+                            <input type="number" asp-for="MaxAge" class="form-control" />
+                            <span asp-validation-for="MaxAge" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Gender</label>
+                            <select asp-for="Gender" class="form-control" required>
+                                <option value="0" disabled selected>Select a Gender</option>
+                                <option value="Kişi">Kişi</option>
+                                <option value="Qadın">Qadın</option>
+                                <option value="-">-</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            <label>* Education</label>
+                            <select asp-for="Education" class="form-control" required>
+                                <option value="0" disabled selected>Select a Education</option>
+                                <option value="Elmi dərəcə">Elmi dərəcə</option>
+                                <option value="Ali">Ali</option>
+                                <option value="Natamam ali">Natamam ali</option>
+                                <option value="Orta texniki">Orta texniki</option>
+                                <option value="Orta">Orta</option>
+                                <option value="-">-</option>
+                            </select>
+                            <span asp-validation-for="Education" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Work Experience</label>
+                            <select asp-for="WorkExperience" class="form-control" required>
+                                <option value="0" disabled selected>Select a Experience</option>
+                                <option value="1 ildən aşağı">1 ildən aşağı</option>
+                                <option value="1 ildən 3 ilə qədər">1 ildən 3 ilə qədər</option>
+                                <option value="3 ildən 5 ilə qədər">3 ildən 5 ilə qədər</option>
+                                <option value="5 ildən artıq">5 ildən artıq</option>
+                                <option value="-">-</option>
+                            </select>
+                            <span asp-validation-for="WorkExperience" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Mode of Work</label>
+                            <select asp-for="ModeOfWork" class="form-control" required>
+                                <option value="0" disabled selected>Select a Mode</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Full-time">Full-time</option>
+                                <option value="Frilans">Frilans</option>
+                                <option value="Uzaqdan">Uzaqdan</option>
+                                <option value="Təcrübə">Təcrübə</option>
+                            </select>
+                            <span asp-validation-for="ModeOfWork" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <div style="width: 396px">
+                            <label>Salary</label>
+                            <input type="number" asp-for="Salary" class="form-control" />
+                            <span asp-validation-for="Salary" class="text-danger"></span>
+                        </div>
+                        <div class="mt-1"> 
+                            <input type="checkbox" asp-for="IsNegotiable"/>
+                            <label>Is Negotiable ?</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3">
+                        <div>
+                            <label>* Job Information</label>
+                            <textarea id="JobInformation" asp-for="JobInformation"></textarea>
+                            <span asp-validation-for="JobInformation" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div>
+                            <label>* Requirements</label>
+                            <textarea id="Requirements" asp-for="Requirements"></textarea>
+                            <span asp-validation-for="Requirements" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <label>Note (?)</label>
+                        <textarea id="Note" asp-for="Note" class="form-control"></textarea>
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3">
+                        <div class="w-100">
+                            <label>* Company Name</label>
+                            <input type="text" asp-for="CompanyName" class="form-control" />
+                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Contact Person</label>
+                            <input type="text" asp-for="ContactPerson" class="form-control" />
+                            <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="d-flex gap-3">
+                        <div class="w-100">
+                            <label>* Email</label>
+                            <input type="Email" asp-for="Email" class="form-control" placeholder="jobcompany@gmail.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="w-100">
+                            <label>* Phone Number</label>
+                            <input type="tel" asp-for="Phone" class="form-control" placeholder="(+994) 050 000 00 00" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <br />
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('JobInformation');
+    CKEDITOR.replace('Requirements');
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#fieldDropdown').change(function () {
+            var fieldId = $(this).val();
+            $('#categoryDropdown').empty(); 
+
+            if (fieldId) {
+                $.ajax({
+                    url: '/Admin/Work/GetCategories',
+                    type: 'GET',
+                    data: { id: fieldId },
+                    success: function (data) {
+                        console.log(data)
+                        $('#categoryDropdown').append('<option value="">Select a Category</option>');
+                        $.each(data, function (index, category) {
+                            $('#categoryDropdown').append('<option value="' + category.id + '">' + category.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert('Category-lər yüklənərkən xəta baş verdi.');
+                    }
+                });
+            } 
+            else {
+                $('#categoryDropdown').append('<option value="">Select a Category</option>');
+            }
+        });
+    });
+
+</script>

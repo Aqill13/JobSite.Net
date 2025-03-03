@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Category
+
+
+
+<div class="layout-px-spacing">
+
+    <div class="middle-content container-xxl p-0">
+        <div class="row" id="cancel-row">
+
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4>Add New Category</h4>
+                    <a class="btn btn-outline-danger mb-2" asp-area="Admin" asp-controller="Field" asp-action="Index">Cancel</a>
+                </div>
+                <form asp-area="Admin" asp-controller="Category" asp-action="Create" method="post">
+
+                    <div>
+                        <label>Name</label>
+                        <input type="text" asp-for="Name" class="form-control" placeholder="Max. 50 characters" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div>
+                        <label>Field</label>
+                        <select asp-for="FieldId" class="form-control">
+                            <option value="0" selected></option>
+                            @foreach (var item in ViewBag.Fields)
+                            {
+                               <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="FieldId" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

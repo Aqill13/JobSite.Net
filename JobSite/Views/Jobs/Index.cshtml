@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .job_lists_compact .col-lg-12 .single_jobs {
+        border: 1px solid #9999 !important;
+        background-color: #fff !important;
+    }
+    .job_lists_compact .single_jobs .apply_now .heart_mark{
+        opacity: 0;
+    }
+
+    .job_lists_compact .single_jobs:hover .apply_now .heart_mark {
+            opacity: 1;
+        }
+    .job_lists_compact .jobListPageListTypeGrid3 .icondiv {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .job_lists_compact .jobListPageListTypeGrid3 .box{
+        padding: 0;
+    }
+    .form-container .row .col-lg-12 .single_field select, .form-container .row .col-lg-12 .single_field input {
+        padding: 10px;
+        outline: none;
+        border: 1px solid #999;
+        border-radius: 10px;
+        cursor: pointer;
+        overflow-y: auto;
+        color: #555;
+        width: 100%;
+        margin-bottom: 10px;
+        height: 44px;
+    }
+
+        .form-container .row .col-lg-12 .single_field input::placeholder {
+            color: #555;
+        }
+
+    .form-container .row .col-lg-12 select:focus, .form-container .row .col-lg-12 .single_field input:focus {
+            border-color: cornflowerblue;
+        }
+
+        .form-container .row .col-lg-12 .single_field select::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .form-container .row .col-lg-12 .single_field select::-webkit-scrollbar-thumb {
+            background-color: #9999;
+            border-radius: 4px;
+        }
+
+        .form-container .row .col-lg-12 .single_field select::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+</style>
+
+
+@await Component.InvokeAsync("JobsInJobsPage")
+
+<script>
+    $(document).ready(function () {
+        $('#fieldDropdown').change(function () {
+            var fieldId = $(this).val();
+            console.log(fieldId)
+            $('#categoryDropdown').empty();
+
+            if (fieldId) {
+                $.ajax({
+                    url: '/Home/GetCategories',
+                    type: 'GET',
+                    data: { id: fieldId },
+                    success: function (data) {
+                        console.log(data);
+                        $('#categoryDropdown').append('<option value="">Kateqoriya</option>');
+                        $.each(data, function (index, category) {
+                            $('#categoryDropdown').append('<option value="' + category.id + '">' + category.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert('Category-lər yüklənərkən xəta baş verdi.');
+                    }
+                });
+            } else {
+                $('#categoryDropdown').append('<option value="">Kateqoriya</option>');
+            }
+        });
+    });
+    $(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 24600,
+            values: [750, 24600],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1] + "/ Year");
+            }
+        });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+            " - $" + $("#slider-range").slider("values", 1) + "/ Year");
+    });
+</script>

@@ -1,0 +1,349 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Candidate>
+
+<style>
+    .listPage {
+        padding: 10px;
+        text-align: center;
+        list-style: none;
+    }
+
+        .listPage li {
+            background-color: #fff;
+            border: 1px solid #83B5FE;
+            color: #83B5FE;
+            display: inline-block;
+            margin: 0 10px;
+            cursor: pointer;
+            padding: 7px;
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .listPage .active {
+            background-color: #83B5FE;
+            color: #fff;
+        }
+    .thumb img {
+        width: 70px !important;
+        height: 70px;
+    }
+    .custom-shape-divider-bottom-1727869364 {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+    }
+
+        .custom-shape-divider-bottom-1727869364 svg {
+            position: relative;
+            display: block;
+            width: calc(108% + 1.3px);
+            height: 79px;
+        }
+
+        .custom-shape-divider-bottom-1727869364 .shape-fill {
+            fill: #FFFFFF;
+        }
+
+    .form-container {
+        padding: 76px;
+        width: 100%;
+        text-align: center;
+    }
+    .form-container button {
+        width: 200px;
+        margin-top: 30px;
+    }
+    .form-container div{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        display: grid;
+    }
+    .form-container div select, .form-container div input {
+        padding: 10px;
+        outline: none;
+        border: 1px solid #888;
+        border-radius: 5px;
+        cursor: pointer;
+        overflow-y: auto;
+        color: #555;
+    }
+    .form-container div input::placeholder {
+        color: #555;
+    }
+    .form-container div select:focus, .form-container div input:focus {
+        border-color: cornflowerblue;
+    }
+
+    .form-container div select::-webkit-scrollbar {
+        width: 8px; 
+    }
+
+    .form-container div select::-webkit-scrollbar-thumb {
+        background-color: #9999; 
+        border-radius: 4px; 
+    }
+
+    .form-container div select::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+
+    .single_candidates_index:hover{
+        border-color: #83b5fe;
+    }
+
+    .single_candidates_index:hover a .thumb img {
+        transform: translateY(-5px);
+    }
+
+</style>
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="bradcam_area_alt">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h2 style="color: #83b5fe">İş axtaranlar</h2>
+                    <h3>@Model.Count+ mövcud CV</h3>
+                    <p>Yeni mütəxəssisinizi qarşılayın</p>
+                </div>
+                <div class="bradcam_img">
+                    <img src="~/JobSite/img/candiateds/candidateBradcamArea.webp"
+                         width="360"
+                         alt="candidateJob" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- catagory_area -->
+<form class="form-container" method="get" autocomplete="off">
+    <div>
+        <select id="fieldDropdown">
+            <option value="" selected>Sahə</option>
+            @foreach (var f in ViewBag.Fields)
+            {
+                <option value="@f.Value">@f.Text</option>
+            }
+        </select>
+        <select id="categoryDropdown">
+            <option value="" selected>Kateqoriya</option>
+        </select>
+        <select id="CityId">
+            <option value="" selected>Şəhər</option>
+            @foreach (var c in ViewBag.Cities)
+            {
+                <option value="@c.Value">@c.Text</option>
+            }
+        </select>
+        <select id="Education">
+            <option value="" selected>Təhsil</option>
+            <option value="Elmi dərəcə">Elmi dərəcə</option>
+            <option value="Ali">Ali</option>
+            <option value="Natamam ali">Natamam ali</option>
+            <option value="Orta texniki">Orta texniki</option>
+            <option value="Orta">Orta</option>
+        </select>
+        <select id="WorkExprience">
+            <option value="" selected>İş təcrübəsi</option>
+            <option value="1 ildən aşağı">1 ildən aşağı</option>
+            <option value="1 ildən 3 ilə qədər">1 ildən 3 ilə qədər</option>
+            <option value="3 ildən 5 ilə qədər">3 ildən 5 ilə qədər</option>
+            <option value="5 ildən artıq">5 ildən artıq</option>
+        </select>
+        <!-- Input sahəsi -->
+        <input id="MaxSalary" type="number" placeholder="Max. Maaş" />
+    </div>
+
+    <button id="filtrButton" type="button" class="boxed-btn3">Mütəxəssis axtar</button>
+</form>
+<script>
+
+    $(document).ready(function () {
+        $('#fieldDropdown').change(function () {
+            var fieldId = $(this).val();
+            console.log(fieldId)
+            $('#categoryDropdown').empty();
+
+            if (fieldId) {
+                $.ajax({
+                    url: '/Candidates/GetCategories',
+                    type: 'GET',
+                    data: { id: fieldId },
+                    success: function (data) {
+                        console.log(data);
+                        $('#categoryDropdown').append('<option value="">Kateqoriya</option>');
+                        $.each(data, function (index, category) {
+                            $('#categoryDropdown').append('<option value="' + category.id + '">' + category.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert('Category-lər yüklənərkən xəta baş verdi.');
+                    }
+                });
+            } else {
+                $('#categoryDropdown').append('<option value="">Kateqoriya</option>');
+            }
+        });
+    });
+
+</script>
+<!-- featured_candidates_area_start  -->
+<div class="featured_candidates_area candidate_page_padding">
+    <div class="featured_candidates">
+        <h2 style="margin-top: -20px; margin-bottom: 50px;">İş axtarışında olan mütəxəssislər</h2>
+        <div class="row cList">
+            @foreach (var c in Model)
+            {
+                
+                <a asp-controller="Candidates" asp-action="Details" asp-route-id="@c.Id" class="col-md-6 col-lg-3 item">
+                    <div class="single_candidates">
+                        <div class="thumb">
+                            <img src="@c.Image" alt="img" />
+                            <h4>@c.Position</h4>
+                        </div>
+                        <p>
+                            @c.Firstname @c.Lastname, @c.Age yaş, təhsil @c.Education, iş təcrübəsi @c.WorkExperience,
+                            yaşadığım şəhər - @c.City.Name, @c.MinSalary AZN məbləğdən az olmayan
+                            maaşa iddialıyam
+                        </p>
+                    </div>
+                </a>
+                
+            }
+        </div>
+        <ul class="listPage">
+        </ul>
+    </div>
+</div>
+
+<!--Filtr-->
+<script>
+    const btn = document.querySelector("#filtrButton");
+    btn.addEventListener("click", (e) => {
+
+        let field = document.querySelector("#fieldDropdown").value;
+        let category = document.querySelector("#categoryDropdown").value;
+        let city = document.querySelector("#CityId").value;
+        let education = document.querySelector("#Education").value;
+        let workExprience = document.querySelector("#WorkExprience").value;
+        let maxSalary = document.querySelector("#MaxSalary").value;
+        maxSalary = maxSalary ? parseInt(maxSalary) : null;
+
+        const cList = document.querySelector(".cList");
+        const listPage = document.querySelector(".listPage");
+
+        $.ajax({
+            type: "GET",
+            url: "/Candidates/Filtr",
+            data: {
+                FieldId: field,
+                CategoryId: category,
+                CityId: city,
+                Education: education,
+                WorkExprience: workExprience,
+                MaxSalary: maxSalary
+            },
+            success: function (response) {
+                console.log(response);
+                cList.innerHTML = "";
+                if (response.length == 0) {
+                    cList.innerHTML = "<p style='font-size: 20px'>Mütəxəssis tapılmadı</p>";
+                    listPage.style.display = "none";
+                }
+                else {
+                    response.forEach((c) => {
+                        let item = `<a href="/Candidates/Details/${c.id}" class="col-md-6 col-lg-3 item">
+                        <div class="single_candidates">
+                            <div class="thumb">
+                                    <img src="${c.image}" alt="img" />
+                                    <h4>${c.position}</h4>
+                            </div>
+                            <p>
+                                ${c.firstname} ${c.lastname}, ${c.age} yaş, təhsil ${c.education}, iş təcrübəsi ${c.workExperience},
+                                yaşadığım şəhər - ${c.cityName}, ${c.minSalary} AZN məbləğdən az olmayan
+                                maaşa iddialıyam
+                            </p>
+                        </div>
+                    </a>`;
+                        cList.innerHTML += item;
+                    });
+                    listPage.style.display = "block";
+                }
+            },
+            error: function (error) {
+                console.error("Xəta baş verdi:", error);
+            }
+        });
+        //return false;
+    });
+</script>
+
+
+<!--Pagination js-->
+<script>
+    let thisPage = 1;
+    let limit = 8;
+    let list = document.querySelectorAll('.row .item');
+
+    function loadItem() {
+        let beginGet = limit * (thisPage - 1);
+        let endGet = limit * thisPage - 1;
+        list.forEach((item, key) => {
+            if (key >= beginGet && key <= endGet) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        })
+        listPage();
+    }
+    loadItem();
+    function listPage() {
+        let count = Math.ceil(list.length / limit);
+        document.querySelector('.listPage').innerHTML = '';
+
+        if (thisPage != 1) {
+            let prev = document.createElement('li');
+            prev.innerText = 'PREV';
+            prev.style.width = '50px';
+            prev.style.borderRadius = '40px';
+            prev.setAttribute('onclick', "changePage(" + (thisPage - 1) + ")");
+            document.querySelector('.listPage').appendChild(prev);
+        }
+
+        for (i = 1; i <= count; i++) {
+            let newPage = document.createElement('li');
+            newPage.innerText = i;
+            if (i == thisPage) {
+                newPage.classList.add('active');
+            }
+            newPage.setAttribute('onclick', "changePage(" + i + ")");
+            document.querySelector('.listPage').appendChild(newPage);
+        }
+
+        if (thisPage != count) {
+            let next = document.createElement('li');
+            next.innerText = 'NEXT';
+            next.style.width = '50px';
+            next.style.borderRadius = '40px';
+            next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
+            document.querySelector('.listPage').appendChild(next);
+        }
+    }
+    function changePage(i) {
+        thisPage = i;
+        loadItem();
+    }
+</script>
+

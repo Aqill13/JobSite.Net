@@ -1,0 +1,351 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model FiltrModel
+
+<!-- slider_area_start -->
+<div class="slider_area">
+    <div class="alt_slider_area">
+        <div class="single_slider  d-flex align-items-center slider_bg_1">
+            <div class="slider_text">
+                <h5 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">4536+ İş elanı</h5>
+                <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Xəyal etdiyiniz işi tapın</h3>
+                <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">Peşəkar gələcəyinizi formalaşdırın – hər gün yenilənən iş elanları ilə arzularınıza çatın.</p>
+                <div class="sldier_btn wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="boxed-btn3" style="text-transform: none" asp-area="User" asp-controller="Profile" asp-action="AddCv">CV əlavə et</a>
+                    }
+                    else
+                    {
+                        <a class="boxed-btn3" style="text-transform: none" asp-area="User" asp-controller="Account" asp-action="Login">CV əlavə et</a>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="ilstration_img wow fadeInRight d-none d-lg-block text-right" data-wow-duration="1s" data-wow-delay=".2s">
+            <img src="~/JobSite/img/banner/illustration.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="custom-shape-divider-bottom-1727869364">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+</div>
+<style>
+    .custom-shape-divider-bottom-1727869364 {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+    }
+
+        .custom-shape-divider-bottom-1727869364 svg {
+            position: relative;
+            display: block;
+            width: calc(108% + 1.3px);
+            height: 79px;
+        }
+
+        .custom-shape-divider-bottom-1727869364 .shape-fill {
+            fill: #FFFFFF;
+        }
+
+    .form-container {
+        padding: 76px;
+        width: 100%;
+        text-align: center;
+    }
+    .form-container button {
+        width: 200px;
+        margin-top: 30px;
+    }
+    .form-container div{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        display: grid;
+    }
+    .form-container div select, .form-container div input {
+        padding: 10px;
+        outline: none;
+        border: 1px solid #888;
+        border-radius: 5px;
+        cursor: pointer;
+        overflow-y: auto;
+        color: #555;
+    }
+    .form-container div input::placeholder {
+        color: #555;
+    }
+    .form-container div select:focus, .form-container div input:focus {
+        border-color: cornflowerblue;
+    }
+
+    .form-container div select::-webkit-scrollbar {
+        width: 8px; 
+    }
+
+    .form-container div select::-webkit-scrollbar-thumb {
+        background-color: #9999; 
+        border-radius: 4px; 
+    }
+
+    .form-container div select::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+
+    .single_candidates_index:hover{
+        border-color: #83b5fe;
+    }
+
+    .single_candidates_index:hover a .thumb img {
+        transform: translateY(-5px);
+    }
+
+</style>
+
+<form class="form-container" asp-controller="Home" asp-action="Filtr" method="post" autocomplete="off">
+    <div>
+        <select id="fieldDropdown" asp-for="FieldId">
+            <option value="" selected>Sahə</option>
+            @foreach (var f in ViewBag.Fields)
+            {
+                <option value="@f.Value">@f.Text</option>
+            }
+        </select>
+        <select id="categoryDropdown" asp-for="CategoryId">
+            <option value="" selected>Kateqoriya</option>
+        </select>
+        <select asp-for="CityId">
+            <option value="" selected>Şəhər</option>
+            @foreach (var c in ViewBag.Cities)
+            {
+                <option value="@c.Value">@c.Text</option>
+            }
+        </select>
+        <select asp-for="Education">
+            <option value="" selected>Təhsil</option>
+            <option value="Elmi dərəcə">Elmi dərəcə</option>
+            <option value="Ali">Ali</option>
+            <option value="Natamam ali">Natamam ali</option>
+            <option value="Orta texniki">Orta texniki</option>
+            <option value="Orta">Orta</option>
+        </select>
+        <select asp-for="WorkExprience">
+            <option value="" selected>İş təcrübəsi</option>
+            <option value="1 ildən aşağı">1 ildən aşağı</option>
+            <option value="1 ildən 3 ilə qədər">1 ildən 3 ilə qədər</option>
+            <option value="3 ildən 5 ilə qədər">3 ildən 5 ilə qədər</option>
+            <option value="5 ildən artıq">5 ildən artıq</option>
+        </select>
+        <!-- Input sahəsi -->
+        <input id="salary" type="number" asp-for="MinSalary" placeholder="Min. Maaş" />
+    </div>
+
+    <button type="submit" class="boxed-btn3">İş axtar</button>
+</form>
+<script>
+    
+    $(document).ready(function () {
+        $('#fieldDropdown').change(function () {
+            var fieldId = $(this).val();
+            console.log(fieldId)
+            $('#categoryDropdown').empty();
+
+            if (fieldId) {
+                $.ajax({
+                    url: '/Home/GetCategories',
+                    type: 'GET',
+                    data: { id: fieldId },
+                    success: function (data) {
+                        console.log(data);
+                        $('#categoryDropdown').append('<option value="">Kateqoriya</option>');
+                        $.each(data, function (index, category) {
+                            $('#categoryDropdown').append('<option value="' + category.id + '">' + category.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert('Category-lər yüklənərkən xəta baş verdi.');
+                    }
+                });
+            } else {
+                $('#categoryDropdown').append('<option value="">Kateqoriya</option>');
+            }
+        });
+    });
+
+</script>
+<!--/ catagory_area -->
+<!-- popular_catagory_area_start  -->
+<div class="popular_catagory_area">
+    <div class="popular_catagory">
+        <div class="job-categories">
+            <h2>Populyar kateqoriyalar</h2>
+            <p>Kateqoriyaya görə axtarış edin</p>
+
+            <div class="grid-container">
+                @await Component.InvokeAsync("CategoriesInIndexPage")
+            </div>
+        </div>
+    </div>
+</div>
+<!-- popular_catagory_area_end  -->
+<!-- job_listing_area_start  -->
+<div class="job_listing_area">
+    <div class="job_listing">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section_title">
+                    <h3>İş elanları</h3>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="brouse_job text-right">
+                    <i class="fi fi-br-list activeJobListType" id="listBtn"></i>
+                    <i class="fi fi-br-grid" id="compactBtn"></i>
+                    <a asp-controller="Jobs" asp-action="Index">Daha çox</a>
+                </div>
+            </div>
+        </div>
+        <div class="job_lists">
+            <div class="row">
+                @await Component.InvokeAsync("SomeWorkListInIndexPage")
+            </div>
+        </div>
+    </div>
+</div>
+<!-- job_listing_area_end  -->
+<!-- featured_candidates_area_start  -->
+<div class="featured_candidates_area">
+    <div class="featured_candidates">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title text-center mb-40">
+                    <h3>Seçilmiş Namizədlər</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="candidate_active owl-carousel">
+                    @await Component.InvokeAsync("CandidatesInIndexPage")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- featured_candidates_area_end  -->
+<!-- job_searcing_wrap  -->
+<div class="job_searcing_wrap">
+    <div class="job_searcing">
+        <div class="job_searcing_box">
+            <h3>İş axtarırsınız?</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <a asp-controller="Jobs" asp-action="Index" class="boxed-btn3">İş elanları</a>
+        </div>
+        <div class="job_searcing_box">
+            <h3>Mütəxəssis axtarırsınız?</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <a asp-controller="Candidates" asp-action="Index" class="boxed-btn3">İş axtaranlar</a>
+        </div>
+    </div>
+</div>
+<!-- job_searcing_wrap end  -->
+<!-- testimonial_area  -->
+<div class="testimonial_area  ">
+    <div class="testimonial">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title text-center mb-40">
+                    <h3>Testimonial</h3>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="testmonial_active owl-carousel">
+                    <div class="single_carousel">
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img src="~/JobSite/img/testmonial/author.png" alt="">
+                                        <div class="quote_icon">
+                                            <i class="Flaticon flaticon-quote"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
+                                        <span>- Micky Mouse</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single_carousel">
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img src="~/JobSite/img/testmonial/author.png" alt="">
+                                        <div class="quote_icon">
+                                            <i class=" Flaticon flaticon-quote"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
+                                        <span>- Micky Mouse</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single_carousel">
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img src="~/JobSite/img/testmonial/author.png" alt="">
+                                        <div class="quote_icon">
+                                            <i class="Flaticon flaticon-quote"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
+                                        <span>- Micky Mouse</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const listBtn = document.getElementById('listBtn');
+        const compactBtn = document.getElementById('compactBtn');
+        const jobLists = document.querySelector('.job_lists');
+
+        compactBtn.addEventListener('click', function () {
+            listBtn.classList.remove("activeJobListType");
+            this.classList.add("activeJobListType");
+            jobLists.classList.remove('job_lists');
+            jobLists.classList.add('job_lists_compact');
+        });
+
+        listBtn.addEventListener('click', function () {
+            compactBtn.classList.remove("activeJobListType");
+            this.classList.add("activeJobListType");
+            jobLists.classList.remove('job_lists_compact');
+            jobLists.classList.add('job_lists');
+        });
+    });
+</script>

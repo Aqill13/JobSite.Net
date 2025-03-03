@@ -1,0 +1,295 @@
+﻿@{
+    string action = ViewContext.RouteData.Values["action"].ToString();
+    string controller = ViewContext.RouteData.Values["controller"].ToString();
+    string active = "activeLink";
+
+    var user = await _userService.GetUserAsync();
+    var userFullName = user != null ? user.Fullname : "Guest";
+}
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Job Board</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/JobSite/img/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- CSS here -->
+    <link rel="stylesheet" href="~/JobSite/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/JobSite/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/JobSite/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/JobSite/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/JobSite/css/themify-icons.css">
+    @* <link rel="stylesheet" href="~/JobSite/css/nice-select.css"> *@
+    <link rel="stylesheet" href="~/JobSite/css/flaticon.css">
+    <link rel="stylesheet" href="~/JobSite/css/gijgo.css">
+    <link rel="stylesheet" href="~/JobSite/css/animate.min.css">
+    <link rel="stylesheet" href="~/JobSite/css/slicknav.css">
+
+    <link rel="stylesheet" href="~/JobSite/css/style.css">
+    <!-- SweetAlert2 Kütüphanesini Ekleme -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- bootstrap-->
+    <!-- ? flaticon -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <!-- ? fontaveshome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
+    <!--SPLIDE JS-->
+    <link href="https://cdn.jsdelivr.net/npm/@@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <style>
+        .activeLink {
+            color: #FFF !important;
+        }
+
+        #registerbtn {
+            margin-right: -40px;
+            color: #3A86FF;
+        }
+
+        .search-right {
+            display: flex;
+            align-items: center;
+        }
+
+        #registerbtn:hover {
+            color: #002766;
+        }
+
+        #loginbtn {
+            background-color: #3A86FF;
+            color: #fff;
+        }
+
+            #loginbtn:hover {
+                background-color: transparent;
+                color: #3A86FF;
+                border: 1px solid #3A86FF;
+            }
+
+        .nav-profile {
+            border: 1px solid #3A86FF;
+            height: 43px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .Appointment {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .Appointment a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 15px;
+                border-radius: 10px;
+                text-decoration: none;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+
+        .profile {
+            background-color: #001b47;
+            color: #4eb1ff;
+            border: 1px solid #4eb1ff;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+    </style>
+</head>
+
+
+
+<body>
+
+    <!-- header-start -->
+    <header>
+        <div class="header-area">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid ">
+                    <div class="header_bottom_border">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-2">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <img src="~/JobSite/img/logojob.png" width="130" style="margin-left: -15px;" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-7">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a class="@(controller == "Home" ? active : "")" asp-area="" asp-controller="Home" asp-action="Index">Ev</a></li>
+                                            <li><a class="@(controller == "About" ? active : "")" asp-area="" asp-controller="About" asp-action="Index">Haqqımızda</a></li>
+                                            <li><a class="@(controller == "Jobs" ? active : "")" asp-area="" asp-controller="Jobs" asp-action="Index">İş elanları</a></li>
+                                            <li><a class="@(controller == "Candidates" ? active : "")" asp-area="" asp-controller="Candidates" asp-action="Index">İş axtaranlar</a></li>
+                                            <li><a class="@(controller == "Contact" ? active : "")" asp-area="" asp-controller="Contact" asp-action="Index">Əlaqə</a></li>
+
+                                            @* <li>
+                                            <a href="#">blog <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                            <li><a href="/JobSite/blog.html">blog</a></li>
+                                            <li><a href="/JobSite/single-blog.html">single-blog</a></li>
+                                            </ul>
+                                            </li> *@
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 d-none d-lg-block" style="margin-left: -10px;">
+                                <div class="Appointment">
+                                    <div class="phone_num d-none d-xl-block">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <a class="profile boxed-btn4" asp-area="User" asp-controller="Profile" asp-action="Index">
+                                                <i class="fa-solid fa-user"></i> @userFullName
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="login-link" asp-area="User" asp-controller="Account" asp-action="Login">Daxil ol</a>
+                                        }
+                                    </div>
+                                    <div class="d-none d-lg-block post-job">
+                                        <a class="boxed-btn3" asp-controller="Post" asp-action="Create">Post a Job</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <hr style="width: 90%; margin: 0 auto; border-color: #56565699;">
+        </div>
+    </header>
+    <!-- header-end -->
+
+    <main>
+        @* <div class="modal fade" id="logoutmodal" tabindex="-1" aria-labelledby="logoutmodalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutmodalLabel">Çıxış etmək istəyirsiniz?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Çıxış etmək üçün "Bəli"yə basın.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bağla</button>
+                        <a type="button" class="btn btn-primary" asp-area="User" asp-controller="Account" asp-action="Logout">Bəli</a>
+                    </div>
+                </div>
+            </div>
+        </div> *@
+        @RenderBody()
+    </main>
+
+
+    <!-- footer start -->
+    @if (controller != "Account" && action != "Filtr" && action != "WorksInFieldId")
+    {
+        @await Html.PartialAsync("_Footer")
+    }
+    <!--/ footer end  -->
+    <!-- JS here -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        setInterval(() => {
+            fetch('/User/Account/KeepAlive', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }, 10000);
+
+    </script>
+
+    @* <script>
+    let idleTime = 0;
+    const idleLimit = 10;
+    let isStatusUpdated = false;
+
+    function resetIdleTime() {
+    idleTime = 0;
+    }
+
+    $(document).on('mousemove keypress', resetIdleTime);
+
+    setInterval(() => {
+    idleTime += 1;
+    if (idleTime >= idleLimit && !isStatusUpdated) {
+    $.ajax({
+    url: '/User/Account/UpdateStatus',
+    method: 'POST',
+    contentType: 'application/json',
+    dataType: 'JSON',
+    data: JSON.stringify({ status: 'Offline' }),
+    success: function(response) {
+    window.location.href = "/User/Account/Login";
+    console.log("Status 'Offline' olaraq yeniləndi.");
+    isStatusUpdated = true;
+    },
+    error: function(error) {
+    console.error("Xəta baş verdi:", error);
+    }
+    });
+    }
+    }, 1000);
+    </script> *@
+
+
+    <!--SPLIDE JS-->
+    <script src="https://cdn.jsdelivr.net/npm/@@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
+    <script src="~/JobSite/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/JobSite/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/JobSite/js/popper.min.js"></script>
+    <script src="~/JobSite/js/bootstrap.min.js"></script>
+    <script src="~/JobSite/js/owl.carousel.min.js"></script>
+    <script src="~/JobSite/js/isotope.pkgd.min.js"></script>
+    <script src="~/JobSite/js/ajax-form.js"></script>
+    <script src="~/JobSite/js/waypoints.min.js"></script>
+    <script src="~/JobSite/js/jquery.counterup.min.js"></script>
+    <script src="~/JobSite/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/JobSite/js/scrollIt.js"></script>
+    <script src="~/JobSite/js/jquery.scrollUp.min.js"></script>
+    <script src="~/JobSite/js/wow.min.js"></script>
+    @* <script src="~/JobSite/js/nice-select.min.js"></script> *@
+    <script src="~/JobSite/js/jquery.slicknav.min.js"></script>
+    <script src="~/JobSite/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/JobSite/js/plugins.js"></script>
+    <script src="~/JobSite/js/gijgo.min.js"></script>
+    <!--contact j~/JobSite/s-->
+    <script src="~/JobSite/js/contact.js"></script>
+    <script src="~/JobSite/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/JobSite/js/jquery.form.js"></script>
+    <script src="~/JobSite/js/jquery.validate.min.js"></script>
+    <script src="~/JobSite/js/mail-script.js"></script>
+    <script src="~/JobSite/js/main.js"></script>
+</body>
+
+</html>

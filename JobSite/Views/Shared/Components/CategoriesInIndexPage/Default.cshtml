@@ -1,0 +1,18 @@
+﻿
+@{
+    Layout = null;
+}
+@model List<Field>
+
+@foreach (var c in Model)
+{
+    <a asp-controller="Home" asp-action="WorksInFieldId" asp-route-id="@c.Id">
+        <div class="category-card">
+            <div class="icon"><i class="@c.Icon"></i></div>
+            <div>
+                <h3>@c.Name</h3>
+                <p>(@c.Works.Count iş elanı)</p>
+            </div>
+        </div>
+    </a>
+}

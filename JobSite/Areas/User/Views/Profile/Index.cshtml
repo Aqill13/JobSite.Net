@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Shared/_UserLayout.cshtml";
+}
+
+@model Users
+
+<style>
+    form {
+        width: 500px;
+    }
+</style>
+
+@if (TempData["updatedSuccessfully"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '@TempData["updatedSuccessfully"]'
+        });
+    </script>
+}
+
+<span>Status: <span class="text-success">@Model.Status</span></span>
+<br />
+<br />
+
+<form asp-area="User" asp-controller="Profile" asp-action="Index" method="post" asp-antiforgery="true">
+    <div>
+        <label>Ad Soyad</label>
+        <input type="text" asp-for="Fullname" class="form-control" required />
+    </div>
+    <br />
+    <div>
+        <label>İstifadəçi adı</label>
+        <input type="text" asp-for="UserName" class="form-control" readonly />
+    </div>
+    <div>
+        <br />
+        <label>Email</label>
+        <input type="email" asp-for="Email" class="form-control" readonly />
+    </div>
+    <br />
+    <button class="btn btn-primary" type="submit">Yadda saxla</button>
+</form>
+

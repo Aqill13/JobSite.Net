@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Contact
+
+@if (TempData["errMess"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'info',
+            title: '@TempData["errMess"]'
+        });
+    </script>
+}
+@if (TempData["successMess"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '@TempData["successMess"]'
+        });
+    </script>
+}
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="bradcam_area_alt">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h2 style="color: #83b5fe;">Əlaqə</h2>
+                    <h3>Bizimlə əlaqə saxlayın</h3>
+                    <p>Görüşləriniz və təşəbbüsləriniz bizim üçün dəyərlidir</p>
+                </div>
+                <div class="bradcam_img">
+                    <img src="~/JobSite/img/contactBradcamImage.webp" width="540" alt="contactBradcamImage">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!-- ================ contact section start ================= -->
+<section class="contact-section section_padding">
+    <div class="contact-section-alt">
+
+        <div class="row">
+            <div class="col-12">
+                <h2 class="contact-title">Bizə yazın</h2>
+            </div>
+            <div class="col-lg-8">
+                <form asp-controller="Contact" asp-action="SendMessage" class="form-contact" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input class="form-control"
+                                       asp-for="Name"
+                                       id="name"
+                                       type="text"
+                                       onfocus="this.placeholder = ''"
+                                       onblur="this.placeholder = 'Adınız'"
+                                       placeholder="Adınız" />
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input class="form-control"
+                                       asp-for="Email"
+                                       id="email"
+                                       type="email"
+                                       onfocus="this.placeholder = ''"
+                                       onblur="this.placeholder = 'Email ünvanınız'"
+                                       placeholder="Email ünvanınız" />
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input class="form-control"
+                                       asp-for="Subject"
+                                       id="subject"
+                                       type="text"
+                                       onfocus="this.placeholder = ''"
+                                       onblur="this.placeholder = 'Mövzu'"
+                                       placeholder="Mövzu" />
+                                <span class="text-danger" asp-validation-for="Subject"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <textarea class="form-control w-100"
+                                          asp-for="Message"
+                                          id="message"
+                                          cols="30"
+                                          rows="9"
+                                          onfocus="this.placeholder = ''"
+                                          onblur="this.placeholder = 'Mesaj yazın'"
+                                          placeholder="Mesaj yazın"></textarea>
+                                <span class="text-danger" asp-validation-for="Message"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="submit"
+                                class="button button-contactForm btn_4 boxed-btn3">
+                            Göndər
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-home"></i></span>
+                    <div class="media-body">
+                        <h3>Bakı ş. Hüseyn Cavid pr.</h3>
+                    </div>
+                </div>
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                    <div class="media-body">
+                        <a href="tel:994503730035">+994 50 373 0035</a>
+                    </div>
+                </div>
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-email"></i></span>
+                    <div class="media-body">
+                        <a href="mailto:aqilkalbiyev01@gmail.com">aqilkalbiyev01@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

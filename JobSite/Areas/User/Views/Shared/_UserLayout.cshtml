@@ -1,0 +1,506 @@
+﻿@{
+    string active = "nav-content-highlight";
+    string action = ViewContext.RouteData.Values["action"].ToString();
+
+    var user = await _userService.GetUserAsync();
+    var fullname = user != null ? user.Fullname : "Guest";
+}
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Job Board</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
+    <!-- CSS here -->
+    <link rel="stylesheet" href="~/JobSite/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/JobSite/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/JobSite/css/magnific-popup.css" />
+    <link rel="stylesheet" href="~/JobSite/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/JobSite/css/themify-icons.css" />
+    <link rel="stylesheet" href="~/JobSite/css/nice-select.css" />
+    <link rel="stylesheet" href="~/JobSite/css/flaticon.css" />
+    <link rel="stylesheet" href="~/JobSite/css/gijgo.css" />
+    <link rel="stylesheet" href="~/JobSite/css/animate.min.css" />
+    <link rel="stylesheet" href="~/JobSite/css/slicknav.css" />
+
+    <link rel="stylesheet" href="~/JobSite/css/style.css" />
+
+    <!-- ? flaticon -->
+    <link rel="stylesheet"
+          href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" />
+    <!-- ? fontaveshome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <!-- SweetAlert2 Kütüphanesini Ekleme -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        :root {
+            --background: #fff;
+            --navbar-width: 256px;
+            --navbar-width-min: 80px;
+            --navbar-dark-primary: #18283b;
+            --navbar-dark-secondary: #2c3e50;
+            --navbar-light-primary: #f5f6fa;
+            --navbar-light-secondary: #8392a5;
+        }
+
+        html,
+        body {
+            font-family: "Tilt Neon", sans-serif;
+            font-weight: normal;
+            font-style: normal;
+            margin: 0;
+            background: var(--background);
+        }
+
+        #nav-toggle:checked ~ #nav-header {
+            width: calc(var(--navbar-width-min) - 16px);
+        }
+
+        #nav-toggle:checked ~ #nav-content,
+        #nav-toggle:checked ~ #nav-footer {
+            width: var(--navbar-width-min);
+        }
+
+        #nav-toggle:checked ~ #nav-header #nav-title {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s;
+        }
+
+        #nav-toggle:checked ~ #nav-header label[for="nav-toggle"] {
+            left: calc(50% - 8px);
+            transform: translate(-50%);
+        }
+
+        #nav-toggle:checked ~ #nav-header #nav-toggle-burger {
+            background: var(--navbar-light-primary);
+        }
+
+            #nav-toggle:checked ~ #nav-header #nav-toggle-burger:before,
+            #nav-toggle:checked ~ #nav-header #nav-toggle-burger::after {
+                width: 16px;
+                background: var(--navbar-light-secondary);
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+        #nav-toggle:checked ~ #nav-content .nav-button span {
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+
+        #nav-toggle:checked ~ #nav-content .nav-button .fas {
+            min-width: calc(100% - 16px);
+        }
+
+        #nav-toggle:checked ~ #nav-footer #nav-footer-avatar {
+            margin-left: 0;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        #nav-toggle:checked ~ #nav-footer #nav-footer-titlebox,
+        #nav-toggle:checked ~ #nav-footer label[for="nav-footer-toggle"] {
+            opacity: 0;
+            transition: opacity 0.1s;
+            pointer-events: none;
+        }
+
+        #nav-bar {
+            position: fixed;
+            top: 1vw; /* Header hündürlüyü qədər məsafə */
+            left: 1vw;
+            height: calc(100% - 2vw); /* Header-ı nəzərə alaraq tənzimləmə */
+            z-index: 1000; /* Header-in altında */
+            background: var(--navbar-dark-primary);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            color: var(--navbar-light-primary);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+            #nav-bar hr {
+                margin: 0;
+                position: relative;
+                left: 16px;
+                width: calc(100% - 32px);
+                border: none;
+                border-top: solid 1px var(--navbar-dark-secondary);
+            }
+
+            #nav-bar a {
+                color: inherit;
+                text-decoration: inherit;
+            }
+
+            #nav-bar input[type="checkbox"] {
+                display: none;
+            }
+
+        #nav-header {
+            position: relative;
+            width: var(--navbar-width);
+            left: 16px;
+            width: calc(var(--navbar-width) - 16px);
+            min-height: 80px;
+            background: var(--navbar-dark-primary);
+            border-radius: 16px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            transition: width 0.2s;
+        }
+
+            #nav-header hr {
+                position: absolute;
+                bottom: 0;
+            }
+
+        #nav-title {
+            font-size: 1.5rem;
+            transition: opacity 1s;
+        }
+
+        label[for="nav-toggle"] {
+            position: absolute;
+            right: 0;
+            width: 3rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #nav-toggle-burger {
+            position: relative;
+            width: 16px;
+            height: 2px;
+            background: var(--navbar-dark-primary);
+            border-radius: 99px;
+            transition: background 0.2s;
+        }
+
+            #nav-toggle-burger:before,
+            #nav-toggle-burger:after {
+                content: "";
+                position: absolute;
+                top: -6px;
+                width: 10px;
+                height: 2px;
+                background: var(--navbar-light-primary);
+                border-radius: 99px;
+                transform: translate(2px, 8px) rotate(30deg);
+                transition: 0.2s;
+            }
+
+            #nav-toggle-burger:after {
+                top: 6px;
+                transform: translate(2px, -8px) rotate(-30deg);
+            }
+
+        #nav-content {
+            margin: -16px 0;
+            padding: 16px 0;
+            position: relative;
+            flex: 1;
+            width: var(--navbar-width);
+            background: var(--navbar-dark-primary);
+            box-shadow: 0 0 0 16px var(--navbar-dark-primary);
+            direction: rtl;
+            overflow-x: hidden;
+            transition: width 0.2s;
+        }
+
+            #nav-content::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+
+            #nav-content::-webkit-scrollbar-thumb {
+                border-radius: 99px;
+                background-color: #9999;
+            }
+
+            #nav-content::-webkit-scrollbar-button {
+                height: 16px;
+            }
+
+        #nav-content-highlight {
+            position: absolute;
+            left: 16px;
+            top: -70px;
+            width: calc(100% - 16px);
+            height: 54px;
+            background: var(--background);
+            background-attachment: fixed;
+            border-radius: 16px 0 0 16px;
+            transition: top 0.15s;
+        }
+
+        .nav-content-highlight {
+            width: calc(100% - 16px);
+            height: 54px;
+            background: var(--background);
+            background-attachment: fixed;
+            border-radius: 16px 0 0 16px;
+            transition: top 0.15s;
+            color: black !important;
+        }
+
+            .nav-content-highlight:before,
+            .nav-content-highlight:after {
+                content: "";
+                position: absolute;
+                right: 0;
+                bottom: 100%;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                box-shadow: 16px 16px var(--background);
+            }
+
+            .nav-content-highlight:after {
+                top: 100%;
+                box-shadow: 16px -16px var(--background);
+            }
+
+        #nav-content-highlight:before,
+        #nav-content-highlight:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            bottom: 100%;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            box-shadow: 16px 16px var(--background);
+        }
+
+        #nav-content-highlight:after {
+            top: 100%;
+            box-shadow: 16px -16px var(--background);
+        }
+
+        .nav-button {
+            position: relative;
+            margin-left: 16px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            color: var(--navbar-light-secondary);
+            direction: ltr;
+            cursor: pointer;
+            z-index: 1;
+            transition: color 0.2s;
+        }
+
+            .nav-button:hover {
+                color: black !important;
+            }
+
+            .nav-button span {
+                transition: opacity 1s;
+            }
+
+            .nav-button .fas {
+                transition: min-width 0.2s;
+            }
+
+            .nav-button:nth-of-type(1):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(1):hover ~ #nav-content-highlight {
+                    top: 16px;
+                }
+
+            .nav-button:nth-of-type(2):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(2):hover ~ #nav-content-highlight {
+                    top: 70px;
+                }
+
+            .nav-button:nth-of-type(3):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(3):hover ~ #nav-content-highlight {
+                    top: 124px;
+                }
+
+            .nav-button:nth-of-type(4):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(4):hover ~ #nav-content-highlight {
+                    top: 178px;
+                }
+
+            .nav-button:nth-of-type(5):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(5):hover ~ #nav-content-highlight {
+                    top: 232px;
+                }
+
+            .nav-button:nth-of-type(6):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(6):hover ~ #nav-content-highlight {
+                    top: 286px;
+                }
+
+            .nav-button:nth-of-type(7):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(7):hover ~ #nav-content-highlight {
+                    top: 340px;
+                }
+
+            .nav-button:nth-of-type(8):hover {
+                color: var(--navbar-dark-primary);
+            }
+
+                .nav-button:nth-of-type(8):hover ~ #nav-content-highlight {
+                    top: 394px;
+                }
+
+        #nav-bar .fas {
+            min-width: 3rem;
+            text-align: center;
+        }
+
+        .header {
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%; /* Tam genişlik */
+            z-index: 999; /* Üst səviyyədə görünməsi üçün */
+        }
+
+        .header-content {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: var(--navbar-dark-primary);
+            border-radius: 16px;
+            padding: 15px;
+            gap: 30px;
+        }
+
+            .header-content a {
+                text-decoration: none;
+                color: #999;
+                border: 1px solid #999;
+                padding: 4px;
+                border-radius: 7px;
+                transition: 0.3s;
+            }
+
+                .header-content a:hover {
+                    background-color: #fff;
+                    color: var(--navbar-dark-primary);
+                }
+
+        .hProfile {
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+
+            .hProfile i {
+                margin-right: 8px;
+            }
+
+        .main {
+            margin-left: 300px;
+            margin-top: 100px;
+            padding-right: 15px;
+            padding-bottom: 15px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+        <div style="width: 100%; height:15px; background: white; z-index:1000; position: fixed; top: 0"></div>
+        <div class="header">
+            <div class="header-content">
+                <div class="hProfile">
+                    <i class="fas fa-solid fa-user"></i>
+                    <span>@fullname</span>
+                </div>
+                <a asp-area="" asp-controller="Home" asp-action="Index">Sayta keçid</a>
+            </div>
+        </div>
+        <div>
+            <div id="nav-bar">
+                <div id="nav-header">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" id="nav-title">FindJob</a>
+                    <hr />
+                </div>
+                <div id="nav-content">
+                    <a asp-area="User" asp-controller="Profile" asp-action="Index" class="nav-button @((action == "Index") ? active : "")">
+                        <i class="fas fa-solid fa-user"></i><span>Profilim</span>
+                    </a>
+                    <a asp-area="User" asp-controller="Profile" asp-action="AddCv" class="nav-button @((action == "AddCv") ? active : "")">
+                        <i class="fas fa-solid fa-file"></i><span>Cv yerləşdir</span>
+                    </a>
+                    <a asp-area="User" asp-controller="Profile" asp-action="MyAnnouncement" class="nav-button @((action == "MyAnnouncement") ? active : "")">
+                        <i class="fas fa-solid fa-bullhorn"></i><span>Elanlarım</span>
+                    </a>
+                    <a asp-area="User" asp-controller="Profile" asp-action="Favorite" class="nav-button @((action == "Favorite") ? active : "")">
+                        <i class="fas fa-heart"></i><span>Bəyəndiklərim</span>
+                    </a>
+                    <a asp-area="User" asp-controller="Profile" asp-action="SecuritySettings" class="nav-button @((action == "SecuritySettings") ? active : "")">
+                        <i class="fas fa-solid fa-lock"></i><span>Şifrəni yenilə</span>
+                    </a>
+                    <hr style="margin-right: 10px" />
+                    <a asp-area="User" asp-controller="Account" asp-action="Logout" class="nav-button">
+                        <i class="fas fa-solid fa-arrow-right-from-bracket"></i><span>Çıxış</span>
+                    </a>
+                    <div id="nav-content-highlight"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        @RenderBody()
+    </div>
+
+
+    <script>
+        setInterval(() => {
+            fetch('/User/Account/KeepAlive', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }, 10000);
+
+    </script>
+</body>
+</html>

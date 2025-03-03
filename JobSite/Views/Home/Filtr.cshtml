@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Filtr";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Work>
+
+    <style>
+        .boxes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap:20px;
+        }
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #888;
+            border-radius: 10px;
+            padding:15px;
+            box-shadow: 0 2px 4px #9999;
+            transition: 0.3s;
+        }
+
+        .box .heart {
+            position: absolute;
+            width: 35px;
+            height:35px;
+            font-size:18px;
+            top: 3px;
+            right: 3px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #83B5FE !important;
+            cursor: pointer;
+        }
+
+        .box .heart:hover {
+                background: #83B5FE;
+                color: #fff !important;
+        }
+        .box h4{
+            margin-top:10px;
+        }
+        .box .more {
+            gap: 12px;
+        }
+        .box .more p i {
+            color: #83B5FE;
+        }
+        .meBut {
+            transition: 0.2s;
+            padding:5px 10px;
+            border-radius:10px;
+            border: 1px solid #444;
+            cursor: pointer;
+            color: #444;
+            background: #fff;
+        }
+        .meBut:hover {
+            background: #83B5FE;
+            color: #fff;
+            border-color: #83B5FE;
+        }
+        .box:hover {
+            border-color: #83B5FE;
+            transform: translateY(-10px);
+        }
+    </style>
+
+<div style="padding:50px; margin-top:100px">
+    @if (Model.Count == 0)
+    {
+        <h2>İş elanı tapılmadı</h2>
+    }
+    else
+    {
+        <h2>@Model.Count nəticə</h2>
+        <br />
+        <div class="boxes">
+            @foreach (var w in Model)
+            {
+                <div class="box">
+                    <a class="heart"><i class="ti-heart"></i></a>
+                    <div class="icon"><i class="@w.Field.Icon"></i></div>
+                    <h4>@w.Position</h4>
+                    <div class="d-flex align-items-center more">
+                        <p><i class="fa-solid fa-location-dot"></i> @w.City.Name</p>
+                        <p><i class="fa fa-clock-o"></i> @w.ModeOfWork</p>
+                        @if (!w.IsNegotiable)
+                        {
+                            <p><i class="fa-solid fa-manat-sign"></i> @w.Salary</p>
+                        }
+                        else
+                        {
+                            <p><i class="fa-solid fa-manat-sign"></i> Razılaşma</p>
+                        }
+                    </div>
+                    <p>@w.PublishDate</p>
+                    <a asp-controller="Jobs" asp-action="JobDetails" asp-route-id="@w.Id" class="meBut">ㅤƏtraflıㅤ</a>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+

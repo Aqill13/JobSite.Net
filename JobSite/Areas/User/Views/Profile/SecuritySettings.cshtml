@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "SecuritySettings";
+    Layout = "~/Areas/User/Views/Shared/_UserLayout.cshtml";
+}
+@model ChangePasswordViewModel
+
+<style>
+    form {
+        width: 500px;
+    }
+</style>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                title: 'custom-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '@TempData["SuccessMessage"]'
+        });
+    </script>
+}
+
+<h3>Şifrə yeniləmə</h3>
+<br />
+
+<form asp-area="User" asp-controller="Profile" asp-action="SecuritySettings" method="post" asp-antiforgery="true">
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label for="currentPassword">Mevcud Şifrə</label>
+        <input asp-for="CurrentPassword" type="password" class="form-control" />
+        <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="newPassword">Yeni Şifrə</label>
+        <input asp-for="NewPassword" type="password" class="form-control" />
+        <span asp-validation-for="NewPassword" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="confirmNewPassword">Yeni Şifrə Tekrarı</label>
+        <input asp-for="ConfirmNewPassword" type="password" class="form-control" />
+        <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Yadda saxla</button>
+</form>
+
