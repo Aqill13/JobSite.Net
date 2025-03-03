@@ -8,7 +8,6 @@ using System.Security.Claims;
 namespace JobSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
     [Authorize(Policy = "AdminPolicy")]
     public class AccountController : Controller
     {
