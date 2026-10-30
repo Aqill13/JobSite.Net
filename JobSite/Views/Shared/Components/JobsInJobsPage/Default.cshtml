@@ -256,7 +256,8 @@
                 }
                 else {
                     response.forEach((w) => {
-                        let item = `<div class="item">
+                        if (w.isActive) {
+                            let item = `<div class="item">
                                         <div class="img">
                                             <div class="icon"><i class="${w.fieldIcon}"></i></div>
                                         </div>
@@ -279,7 +280,9 @@
                                             <a href="/Jobs/JobDetails/${w.id}" class="more">ㅤƏtraflıㅤ</a>
                                         </div>
                                    </div>`;
-                        list.innerHTML += item;
+                            list.innerHTML += item;
+                        }
+                        
                     });
                     listPage.style.display = "block";
                 }

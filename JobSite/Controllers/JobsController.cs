@@ -51,6 +51,7 @@ namespace JobSite.Controllers
             var result = query.Select(x => new
             {
                 x.Id,
+                x.IsActive,
                 x.Position,
                 x.Salary,
                 x.ModeOfWork,

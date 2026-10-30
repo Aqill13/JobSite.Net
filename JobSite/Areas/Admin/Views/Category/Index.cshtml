@@ -248,15 +248,13 @@
             return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
         }
 
-        // Açık olan satırları saklamak için bir nesne tanımlıyoruz
         let openedRows = {};
 
-        // Satır açma/kapama işlevi
         function toggleRow(id, row, button) {
             if (row.next('.child-row').length) {
                 row.next('.child-row').remove();
                 button.text('+').css({ 'border-color': '', 'color': '' });
-                delete openedRows[id]; // Hafızadan kaldır
+                delete openedRows[id]; 
                 return;
             }
 
@@ -272,7 +270,7 @@
                         var messageRow = '<div class="child-row messageRow"><p>Data yoxdur</p></div>';
                         row.after(messageRow);
                         button.text('-').css({ 'border-color': 'red', 'color': 'red' });
-                        openedRows[id] = true; // Satırı açık olarak sakla
+                        openedRows[id] = true; 
                         return;
                     }
 
@@ -324,12 +322,11 @@
                     categoryRows += '</tbody></table>';
                     row.after(categoryRows);
                     button.text('-').css({ 'border-color': 'red', 'color': 'red' });
-                    openedRows[id] = true; // Satırı açık olarak sakla
+                    openedRows[id] = true; 
                 }
             });
         }
 
-        // Sayfa yüklendiğinde veya her yeni sayfa açıldığında eventleri ekle
         $(document).on('click', '.show-categories-btn', function () {
             var id = $(this).data('id');
             var row = $(this).closest('tr');
@@ -337,7 +334,6 @@
             toggleRow(id, row, button);
         });
 
-        // Sayfa geçişlerinde açık olan satırları tekrar aç
         $('#dataTable').on('draw.dt', function () {
             $('.show-categories-btn').each(function () {
                 var id = $(this).data('id');

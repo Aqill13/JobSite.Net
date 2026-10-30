@@ -24,7 +24,7 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
-
+     
     // Parola ayarları
     options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = false;

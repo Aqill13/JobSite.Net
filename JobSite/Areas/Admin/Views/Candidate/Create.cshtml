@@ -12,13 +12,13 @@
         height: 40px;
         border-radius: 50%;
         display: flex;
-         justify-content: center;
-         align-items: center;
-         color: black;
-         font-size:22px;
-         position: absolute;
-         bottom: 0;
-         right: -8px;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-size: 22px;
+        position: absolute;
+        bottom: 0;
+        right: -8px;
     }
 
     .ppTrash {
@@ -36,7 +36,8 @@
         left: -8px;
         cursor: pointer;
     }
-    .ppImage{
+
+    .ppImage {
         position: relative;
     }
 </style>
@@ -55,24 +56,25 @@
                     <input type="hidden" asp-for="UserId" value="@ViewBag.userId" />
 
                     <div class="d-flex justify-content-center">
-                    <div class="form-group ppImage">
+                        <div class="form-group ppImage">
                             <i class="fa-regular fa-trash-can ppTrash" id="ppTrash"
                                onclick="deletePPimg()"
                                style="display: none">
                             </i>
 
-                        <img id="profileImage" 
-                            src="/pImage/defaultUserImage.png" 
-                            alt="Profile Image" 
-                            width="150" height="150" 
-                            style="border-radius: 50%; cursor: pointer; object-fit: cover" 
-                            onclick="document.getElementById('imageUpload').click()" />
+                            <img id="profileImage"
+                                 src="/pImage/defaultUserImage.png"
+                                 alt="Profile Image"
+                                 width="150" height="150"
+                                 style="border-radius: 50%; cursor: pointer; object-fit: cover"
+                                 onclick="document.getElementById('imageUpload').click()" />
 
                             <i class="fa-regular fa-file-image ppIcon"></i>
 
                             <!-- Gizli input[type="file"] -->
                             <input type="file" id="imageUpload" name="pImage" style="display: none;" onchange="previewImage(event)" />
-                    </div></div>
+                        </div>
+                    </div>
                     <br />
 
                     <div class="d-flex gap-3 align-items-center">
@@ -250,14 +252,14 @@
     }
 
     function previewImage(event) {
-            var reader = new FileReader();
-            reader.onload = function(){
-                var output = document.getElementById('profileImage');
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('profileImage');
             output.src = reader.result;
             document.getElementById('ppTrash').style.display = "flex";
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
     $(document).ready(function () {
         $('#fieldDropdown').change(function () {
